@@ -2,7 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import httpRequest, { QueryParams } from "@api/httpRequest";
 import { images } from "@images/images";
 import React from "react";
-import { View, Text, Image, FlatList, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import {
   Equipment,
   Exercise,
@@ -10,6 +16,7 @@ import {
   Mechanic,
   PrimaryMuscles,
 } from "types/exercise";
+import { useNavigation } from "@react-navigation/native";
 
 async function fetchExercises() {
   const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
@@ -28,6 +35,7 @@ async function fetchExercises() {
 }
 
 function Exercises() {
+  const navigation = useNavigation<any>();
   const { status, data, error } = useQuery({
     queryKey: ["exercises"],
     queryFn: fetchExercises,
@@ -41,13 +49,20 @@ function Exercises() {
     return <Text>Error: {error.message}</Text>;
   }
 
-  const Item = ({ exercise }: { exercise: Exercise }) => {
+  const Item = ({
+    exercise,
+    onPress,
+  }: {
+    exercise: Exercise;
+    onPress: () => void;
+  }) => {
     return (
-      <View
+      <TouchableOpacity
+        onPress={onPress}
         key={exercise.name}
-        className="flex-row justify-between bg-primary p-1"
+        className="flex-row justify-between bg-secondary p-3 mt-4 rounded-2xl"
       >
-        <Text className="w-3/5 text-lg text-white font-semibold">
+        <Text className="w-3/5 text-base text-white font-normal">
           {exercise.name}
         </Text>
         <View className="w-2/5 h-20">
@@ -57,14 +72,17 @@ function Exercises() {
             source={images[exercise.id as keyof typeof images]}
           />
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
   return (
     <FlatList
+      className="bg-primary"
       data={data}
-      renderItem={({ item }) => <Item exercise={item} />}
+      renderItem={({ item }) => (
+        <Item exercise={item} onPress={() => navigation.goBack()} />
+      )}
       keyExtractor={(item) => item.id}
     />
   );

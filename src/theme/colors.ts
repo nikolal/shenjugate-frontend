@@ -1,9 +1,11 @@
 const colors = {
-  primary: "#04011c",
-  secondary: "#0b0f24",
-  ternary: "#c8e2e5",
-  accent: "#9e030d",
-
+  primary: "#050505",
+  secondary: "#121212",
+  ternary: "#1A1A1A",
+  accent: "#52EAFF",
+  accentSecondary: "#FA6969",
+  //
+  buttonBackground: "#11262A",
   //
   white: "#ffffff",
   black: "#000000",

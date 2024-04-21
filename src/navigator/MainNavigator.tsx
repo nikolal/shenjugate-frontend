@@ -23,7 +23,7 @@ function MainNavigator() {
             color: colors.white,
           },
           headerStyle: {
-            backgroundColor: colors.secondary,
+            backgroundColor: colors.primary,
           },
         }}
       />

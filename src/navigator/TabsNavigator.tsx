@@ -19,7 +19,6 @@ function TabsNavigator() {
         },
       }}
     >
-      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Workout" component={Workout} />
     </Tab.Navigator>
   );
