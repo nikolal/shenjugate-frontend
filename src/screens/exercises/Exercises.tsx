@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import httpRequest, { QueryParams } from "@api/httpRequest";
 import { images } from "@images/images";
 import React from "react";
-import { View, Text, Image, FlatList } from "react-native";
+import { View, Text, Image, FlatList, ImageBackground } from "react-native";
 import {
   Equipment,
   Exercise,
@@ -43,12 +43,20 @@ function Exercises() {
 
   const Item = ({ exercise }: { exercise: Exercise }) => {
     return (
-      <View key={exercise.name} className="flex-row justify-between p-1">
-        <Text className="w-3/5 text-lg font-semibold">{exercise.name}</Text>
-        <Image
-          className="w-2/5 h-20"
-          source={images[exercise.id as keyof typeof images]}
-        />
+      <View
+        key={exercise.name}
+        className="flex-row justify-between bg-primary p-1"
+      >
+        <Text className="w-3/5 text-lg text-white font-semibold">
+          {exercise.name}
+        </Text>
+        <View className="w-2/5 h-20">
+          <ImageBackground
+            resizeMode="cover"
+            className="w-full h-20"
+            source={images[exercise.id as keyof typeof images]}
+          />
+        </View>
       </View>
     );
   };

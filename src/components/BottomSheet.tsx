@@ -1,12 +1,14 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-function Home() {
+function BottomSheet() {
   return (
     <View>
-      <Text className="text-white">Home</Text>
+      <View>
+        <Text>AAA</Text>
+      </View>
     </View>
   );
 }
 
-export default Home;
+export default BottomSheet;
