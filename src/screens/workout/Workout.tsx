@@ -8,10 +8,12 @@ function Workout() {
   return (
     <View className="flex-1  bg-primary">
       <Text className="text-white">Workout</Text>
-      <Button
-        text="Press me"
-        onPress={(): void => navigation.navigate("Exercises")}
-      />
+      <View className="w-28 h-8">
+        <Button
+          text="Press me"
+          onPress={(): void => navigation.navigate("Exercises")}
+        />
+      </View>
     </View>
   );
 }
