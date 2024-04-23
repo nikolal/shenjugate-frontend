@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 
 function Home() {
   return (
-    <View>
+    <View className="flex-1 bg-primary">
       <Text className="text-white">Home</Text>
     </View>
   );
