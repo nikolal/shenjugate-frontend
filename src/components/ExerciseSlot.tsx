@@ -15,10 +15,10 @@ function ExerciseSlot({ name, onPress, exercise }: ExerciseSlotProps) {
   return (
     <TouchableOpacity
       key={exercise.id}
-      className="flex-row bg-primary border-y-[1px] border-ternary"
+      className="flex-row bg-primary border-y-[0.5px] border-ternary mx-2"
       onPress={onPress}
     >
-      <View className="w-9/12 h-14 flex-row items-center pl-4">
+      <View className="w-9/12 h-16 flex-row items-center pl-4">
         <Ionicons
           name="barbell"
           size={20}
@@ -30,8 +30,8 @@ function ExerciseSlot({ name, onPress, exercise }: ExerciseSlotProps) {
         />
         <Text className="text-md text-white ml-2">{exercise.name}</Text>
       </View>
-      <View className="w-3/12 h-14 p-2">
-        <View className="h-full bg-secondary flex-row border-[1px] border-ternary rounded-lg items-center">
+      <View className="w-3/12 h-16 px-2 py-3">
+        <View className="h-full bg-secondary flex-row border-[0.5px] border-ternary rounded-lg items-center">
           <TextInput
             className="w-8/12 h-full text-white text-center text-md "
             keyboardType="numeric"
