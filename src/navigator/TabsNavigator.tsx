@@ -25,7 +25,7 @@ function TabsNavigator() {
           borderTopColor: colors.ternary,
         },
         tabBarActiveTintColor: colors.white,
-        tabBarInactiveTintColor: colors.secondary,
+        tabBarInactiveTintColor: colors.ternary,
       }}
     >
       <Tab.Screen
