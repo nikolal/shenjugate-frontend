@@ -4,11 +4,10 @@ export type Exercise = {
   level: string;
   mechanic: string;
   equipment: string;
-  primary_muscles: string;
-  secondary_muscles: string;
-  instructions: string;
+  primary_muscles: string[];
+  secondary_muscles: string[];
+  instructions: string[];
   category: string;
-  images: string;
   id: string;
 };
 
