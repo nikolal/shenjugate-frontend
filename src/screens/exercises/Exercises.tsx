@@ -53,6 +53,20 @@ function chooseType(prevWorkout: Workout) {
     isSecondChestOrShoulders
   ) {
     console.log("A");
+    return {
+      slot1: {
+        mechanic: [Mechanic.Compound],
+        force: [Force.Push],
+        equipment: [Equipment.Barbell],
+        primary_muscles: [PrimaryMuscles.Chest, PrimaryMuscles.Shoulders],
+      },
+      slot2: {
+        mechanic: [Mechanic.Compound],
+        force: [Force.Pull],
+        equipment: [Equipment.Barbell],
+        primary_muscles: [PrimaryMuscles.Hamstrings],
+      },
+    };
   } else if (
     isFirstPush &&
     isFirstChestOrShoulders &&
@@ -60,6 +74,20 @@ function chooseType(prevWorkout: Workout) {
     isSecondHamstring
   ) {
     console.log("B");
+    return {
+      slot1: {
+        mechanic: [Mechanic.Compound],
+        force: [Force.Pull],
+        equipment: [Equipment.Barbell],
+        primary_muscles: [PrimaryMuscles.Hamstrings],
+      },
+      slot2: {
+        mechanic: [Mechanic.Compound],
+        force: [Force.Push],
+        equipment: [Equipment.Barbell],
+        primary_muscles: [PrimaryMuscles.Chest, PrimaryMuscles.Shoulders],
+      },
+    };
   } else if (
     isFirstPull &&
     isFirstHamstring &&
@@ -67,6 +95,20 @@ function chooseType(prevWorkout: Workout) {
     isSecondChestOrShoulders
   ) {
     console.log("C");
+    return {
+      slot1: {
+        mechanic: [Mechanic.Compound],
+        force: [Force.Push],
+        equipment: [Equipment.Barbell],
+        primary_muscles: [PrimaryMuscles.Chest, PrimaryMuscles.Shoulders],
+      },
+      slot2: {
+        mechanic: [Mechanic.Compound],
+        force: [Force.Push],
+        equipment: [Equipment.Barbell],
+        primary_muscles: [PrimaryMuscles.Quadriceps],
+      },
+    };
   } else if (
     isFirstPush &&
     isFirstChestOrShoulders &&
@@ -74,6 +116,20 @@ function chooseType(prevWorkout: Workout) {
     isSecondQuadriceps
   ) {
     console.log("D");
+    return {
+      slot1: {
+        mechanic: [Mechanic.Compound],
+        force: [Force.Push],
+        equipment: [Equipment.Barbell],
+        primary_muscles: [PrimaryMuscles.Quadriceps],
+      },
+      slot2: {
+        mechanic: [Mechanic.Compound],
+        force: [Force.Push],
+        equipment: [Equipment.Barbell],
+        primary_muscles: [PrimaryMuscles.Chest, PrimaryMuscles.Shoulders],
+      },
+    };
   }
 }
 
