@@ -4,16 +4,17 @@ import { Ionicons } from "@expo/vector-icons";
 import colors from "theme/colors";
 import { Exercise, Force, Mechanic, PrimaryMuscles } from "types/exercise";
 
-type ExerciseSlotProps = {
+type WorkoutItemProps = {
   onPress: () => void;
   exercise: Exercise;
+  index: number;
 };
 
-function ExerciseSlot({ onPress, exercise }: ExerciseSlotProps) {
+function WorkoutItem({ onPress, exercise, index }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
   return (
     <TouchableOpacity
-      key={exercise.id}
+      key={index}
       className="flex-row bg-primary border-y-[0.5px] border-ternary mx-2"
       onPress={onPress}
     >
@@ -47,4 +48,4 @@ function ExerciseSlot({ onPress, exercise }: ExerciseSlotProps) {
   );
 }
 
-export default ExerciseSlot;
+export default WorkoutItem;

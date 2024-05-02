@@ -18,6 +18,12 @@ import {
   Workout,
 } from "types/exercise";
 import { useNavigation } from "@react-navigation/native";
+import {
+  workoutAFilters,
+  workoutBFilters,
+  workoutCFilters,
+  workoutDFilters,
+} from "./filters";
 
 function chooseType(prevWorkout: Workout) {
   const first = prevWorkout.exercises[0];
@@ -44,7 +50,6 @@ function chooseType(prevWorkout: Workout) {
   const isSecondChestOrShoulders =
     second.primary_muscles.some((item) => item === PrimaryMuscles.Chest) ||
     second.primary_muscles.some((item) => item === PrimaryMuscles.Shoulders);
-  // const
 
   if (
     isFirstPush &&
@@ -53,20 +58,7 @@ function chooseType(prevWorkout: Workout) {
     isSecondChestOrShoulders
   ) {
     console.log("A");
-    return {
-      slot1: {
-        mechanic: [Mechanic.Compound],
-        force: [Force.Push],
-        equipment: [Equipment.Barbell],
-        primary_muscles: [PrimaryMuscles.Chest, PrimaryMuscles.Shoulders],
-      },
-      slot2: {
-        mechanic: [Mechanic.Compound],
-        force: [Force.Pull],
-        equipment: [Equipment.Barbell],
-        primary_muscles: [PrimaryMuscles.Hamstrings],
-      },
-    };
+    return workoutBFilters;
   } else if (
     isFirstPush &&
     isFirstChestOrShoulders &&
@@ -74,20 +66,7 @@ function chooseType(prevWorkout: Workout) {
     isSecondHamstring
   ) {
     console.log("B");
-    return {
-      slot1: {
-        mechanic: [Mechanic.Compound],
-        force: [Force.Pull],
-        equipment: [Equipment.Barbell],
-        primary_muscles: [PrimaryMuscles.Hamstrings],
-      },
-      slot2: {
-        mechanic: [Mechanic.Compound],
-        force: [Force.Push],
-        equipment: [Equipment.Barbell],
-        primary_muscles: [PrimaryMuscles.Chest, PrimaryMuscles.Shoulders],
-      },
-    };
+    return workoutCFilters;
   } else if (
     isFirstPull &&
     isFirstHamstring &&
@@ -95,20 +74,7 @@ function chooseType(prevWorkout: Workout) {
     isSecondChestOrShoulders
   ) {
     console.log("C");
-    return {
-      slot1: {
-        mechanic: [Mechanic.Compound],
-        force: [Force.Push],
-        equipment: [Equipment.Barbell],
-        primary_muscles: [PrimaryMuscles.Chest, PrimaryMuscles.Shoulders],
-      },
-      slot2: {
-        mechanic: [Mechanic.Compound],
-        force: [Force.Push],
-        equipment: [Equipment.Barbell],
-        primary_muscles: [PrimaryMuscles.Quadriceps],
-      },
-    };
+    return workoutDFilters;
   } else if (
     isFirstPush &&
     isFirstChestOrShoulders &&
@@ -116,20 +82,7 @@ function chooseType(prevWorkout: Workout) {
     isSecondQuadriceps
   ) {
     console.log("D");
-    return {
-      slot1: {
-        mechanic: [Mechanic.Compound],
-        force: [Force.Push],
-        equipment: [Equipment.Barbell],
-        primary_muscles: [PrimaryMuscles.Quadriceps],
-      },
-      slot2: {
-        mechanic: [Mechanic.Compound],
-        force: [Force.Push],
-        equipment: [Equipment.Barbell],
-        primary_muscles: [PrimaryMuscles.Chest, PrimaryMuscles.Shoulders],
-      },
-    };
+    return workoutAFilters;
   }
 }
 
