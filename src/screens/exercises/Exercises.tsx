@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import httpRequest, { QueryParams } from "@api/httpRequest";
+import httpRequest from "@api/httpRequest";
 import { images } from "@images/images";
 import React from "react";
 import {
@@ -9,23 +9,22 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-import {
-  Equipment,
-  Exercise,
-  Force,
-  Mechanic,
-  PrimaryMuscles,
-  Workout,
-} from "types/exercise";
-import { useNavigation } from "@react-navigation/native";
+import { Exercise, Force, PrimaryMuscles, Workout } from "types/exercise";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   workoutAFilters,
   workoutBFilters,
   workoutCFilters,
   workoutDFilters,
 } from "./filters";
+import { workoutExercises } from "@screens/workout/workoutExercises";
 
-function chooseType(prevWorkout: Workout) {
+async function fetchExercises(
+  prevWorkout: Workout,
+  slotIndex: number,
+): Promise<any> {
+  const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
+
   const first = prevWorkout.exercises[0];
   const second = prevWorkout.exercises[1];
   const isFirstPush = first.force === Force.Push;
@@ -58,7 +57,10 @@ function chooseType(prevWorkout: Workout) {
     isSecondChestOrShoulders
   ) {
     console.log("A");
-    return workoutBFilters;
+    return await httpRequest({
+      url: `${baseUrl}/api/v1/exercises`,
+      queryParams: workoutBFilters[slotIndex],
+    });
   } else if (
     isFirstPush &&
     isFirstChestOrShoulders &&
@@ -66,7 +68,10 @@ function chooseType(prevWorkout: Workout) {
     isSecondHamstring
   ) {
     console.log("B");
-    return workoutCFilters;
+    return await httpRequest({
+      url: `${baseUrl}/api/v1/exercises`,
+      queryParams: workoutCFilters[slotIndex],
+    });
   } else if (
     isFirstPull &&
     isFirstHamstring &&
@@ -74,7 +79,10 @@ function chooseType(prevWorkout: Workout) {
     isSecondChestOrShoulders
   ) {
     console.log("C");
-    return workoutDFilters;
+    return await httpRequest({
+      url: `${baseUrl}/api/v1/exercises`,
+      queryParams: workoutDFilters[slotIndex],
+    });
   } else if (
     isFirstPush &&
     isFirstChestOrShoulders &&
@@ -82,31 +90,27 @@ function chooseType(prevWorkout: Workout) {
     isSecondQuadriceps
   ) {
     console.log("D");
-    return workoutAFilters;
+    return await httpRequest({
+      url: `${baseUrl}/api/v1/exercises`,
+      queryParams: workoutAFilters[slotIndex],
+    });
+  } else {
+    return await httpRequest({
+      url: `${baseUrl}/api/v1/exercises`,
+      queryParams: workoutAFilters[slotIndex],
+    });
   }
 }
 
-async function fetchExercises() {
-  const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
-
-  const queryParams: QueryParams = {
-    mechanic: [Mechanic.Compound],
-    force: [Force.Push],
-    equipment: [Equipment.Barbell],
-    primary_muscles: [PrimaryMuscles.Quadriceps],
-  };
-
-  return await httpRequest({
-    url: `${baseUrl}/api/v1/exercises`,
-    queryParams: queryParams,
-  });
-}
-
 function Exercises() {
+  const route = useRoute<any>();
   const navigation = useNavigation<any>();
-  const { status, data, error } = useQuery({
-    queryKey: ["exercises"],
-    queryFn: fetchExercises,
+  const exerciseIndex = route.params.exerciseIndex;
+
+  const { status, data, error } = useQuery<any>({
+    queryKey: [`exercises${exerciseIndex}`],
+    queryFn: () =>
+      fetchExercises({ exercises: workoutExercises }, exerciseIndex),
   });
 
   if (status === "pending") {
@@ -119,15 +123,17 @@ function Exercises() {
 
   const Item = ({
     exercise,
+    index,
     onPress,
   }: {
     exercise: Exercise;
+    index: number;
     onPress: () => void;
   }) => {
     return (
       <TouchableOpacity
         onPress={onPress}
-        key={exercise.name}
+        key={index}
         className="flex-row justify-between bg-secondary p-3 mt-4 rounded-2xl"
       >
         <Text className="w-3/5 text-base text-white font-normal">
@@ -148,10 +154,14 @@ function Exercises() {
     <FlatList
       className="bg-primary"
       data={data}
-      renderItem={({ item }) => (
-        <Item exercise={item} onPress={() => navigation.goBack()} />
+      renderItem={({ item, index }) => (
+        <Item
+          exercise={item}
+          index={index}
+          onPress={() => navigation.goBack()}
+        />
       )}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item, index) => String(index)}
     />
   );
 }

@@ -15,7 +15,12 @@ export type Workout = {
   exercises: Exercise[];
 };
 
-export type ExerciseSlot = Exercise | number;
+export type ExerciseFilter = {
+  mechanic: Mechanic[];
+  force: Force[];
+  equipment: Equipment[];
+  primary_muscles: PrimaryMuscles[];
+};
 
 export enum Mechanic {
   Compound = "Compound",
