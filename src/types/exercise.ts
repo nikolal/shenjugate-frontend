@@ -15,15 +15,19 @@ export type Workout = {
   exercises: Exercise[];
 };
 
+export type ExerciseSlot = Exercise | number;
+
 export enum Mechanic {
   Compound = "Compound",
   Isolation = "Isolation",
+  NotAssigned = "N/A",
 }
 
 export enum Force {
   Push = "Push",
   Pull = "Pull",
   Static = "Static",
+  NotAssigned = "N/A",
 }
 
 export enum PrimaryMuscles {
@@ -43,6 +47,7 @@ export enum PrimaryMuscles {
   Abdominals = "Abdominals",
   Adductors = "Adductors",
   Neck = "Neck",
+  NotAssigned = "N/A",
 }
 
 export enum Equipment {
@@ -58,4 +63,5 @@ export enum Equipment {
   BodyOnly = "BodyOnly",
   FoamRoll = "FoamRoll",
   Other = "Other",
+  NotAssigned = "N/A",
 }
