@@ -14,7 +14,7 @@ function WorkoutItem({ onPress, exercise, index }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
   return (
     <TouchableOpacity
-      key={index}
+      key={String(index)}
       className="flex-row bg-primary border-y-[0.5px] border-ternary mx-2"
       onPress={onPress}
     >

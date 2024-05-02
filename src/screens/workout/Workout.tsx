@@ -32,7 +32,11 @@ function Workout() {
       {exerciseSlot.map((item: Exercise, index) => {
         return (
           <WorkoutItem
-            onPress={(): void => navigation.navigate("Exercises")}
+            onPress={(): void =>
+              navigation.navigate("Exercises", {
+                exerciseIndex: index,
+              })
+            }
             exercise={item}
             index={index}
           />
