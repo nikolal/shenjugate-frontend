@@ -12,7 +12,6 @@ function Workout() {
       {workoutExercises.map((item: Exercise) => {
         return (
           <ExerciseSlot
-            name="Squat"
             onPress={(): void => navigation.navigate("Exercises")}
             exercise={item}
           />

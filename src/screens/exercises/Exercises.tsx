@@ -15,8 +15,67 @@ import {
   Force,
   Mechanic,
   PrimaryMuscles,
+  Workout,
 } from "types/exercise";
 import { useNavigation } from "@react-navigation/native";
+
+function chooseType(prevWorkout: Workout) {
+  const first = prevWorkout.exercises[0];
+  const second = prevWorkout.exercises[1];
+  const isFirstPush = first.force === Force.Push;
+  const isSecondPush = second.force === Force.Push;
+  const isFirstPull = first.force === Force.Pull;
+  const isSecondPull = second.force === Force.Pull;
+  const isFirstQuadriceps = first.primary_muscles.some(
+    (item) => item === PrimaryMuscles.Quadriceps,
+  );
+  const isSecondQuadriceps = second.primary_muscles.some(
+    (item) => item === PrimaryMuscles.Quadriceps,
+  );
+  const isFirstHamstring = first.primary_muscles.some(
+    (item) => item === PrimaryMuscles.Hamstrings,
+  );
+  const isSecondHamstring = second.primary_muscles.some(
+    (item) => item === PrimaryMuscles.Hamstrings,
+  );
+  const isFirstChestOrShoulders =
+    first.primary_muscles.some((item) => item === PrimaryMuscles.Chest) ||
+    first.primary_muscles.some((item) => item === PrimaryMuscles.Shoulders);
+  const isSecondChestOrShoulders =
+    second.primary_muscles.some((item) => item === PrimaryMuscles.Chest) ||
+    second.primary_muscles.some((item) => item === PrimaryMuscles.Shoulders);
+  // const
+
+  if (
+    isFirstPush &&
+    isFirstQuadriceps &&
+    isSecondPush &&
+    isSecondChestOrShoulders
+  ) {
+    console.log("A");
+  } else if (
+    isFirstPush &&
+    isFirstChestOrShoulders &&
+    isSecondPull &&
+    isSecondHamstring
+  ) {
+    console.log("B");
+  } else if (
+    isFirstPull &&
+    isFirstHamstring &&
+    isSecondPush &&
+    isSecondChestOrShoulders
+  ) {
+    console.log("C");
+  } else if (
+    isFirstPush &&
+    isFirstChestOrShoulders &&
+    isSecondPush &&
+    isSecondQuadriceps
+  ) {
+    console.log("D");
+  }
+}
 
 async function fetchExercises() {
   const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;

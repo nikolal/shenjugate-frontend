@@ -1,14 +1,18 @@
 export type Exercise = {
   name: string;
-  force: string;
+  force: Force;
   level: string;
-  mechanic: string;
-  equipment: string;
-  primary_muscles: string[];
+  mechanic: Mechanic;
+  equipment: Equipment;
+  primary_muscles: PrimaryMuscles[];
   secondary_muscles: string[];
   instructions: string[];
   category: string;
   id: string;
+};
+
+export type Workout = {
+  exercises: Exercise[];
 };
 
 export enum Mechanic {
