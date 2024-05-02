@@ -1,4 +1,6 @@
-export const workoutExercises = [
+import { Exercise } from "types/exercise";
+
+const workoutExercisesData = [
   {
     category: "strength",
     equipment: "barbell",
@@ -96,3 +98,6 @@ export const workoutExercises = [
     secondary_muscles: ["glutes", "hamstrings"],
   },
 ];
+const workoutExercises: Exercise[] = workoutExercisesData as Exercise[];
+
+export { workoutExercises };

@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "theme/colors";
-import { Exercise, Mechanic } from "types/exercise";
+import { Exercise, Force, Mechanic, PrimaryMuscles } from "types/exercise";
 
 type ExerciseSlotProps = {
-  name: string;
   onPress: () => void;
   exercise: Exercise;
 };
 
-function ExerciseSlot({ name, onPress, exercise }: ExerciseSlotProps) {
+function ExerciseSlot({ onPress, exercise }: ExerciseSlotProps) {
   const [weight, setWeight] = useState<string>("");
   return (
     <TouchableOpacity
