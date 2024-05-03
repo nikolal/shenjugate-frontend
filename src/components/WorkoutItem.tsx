@@ -7,14 +7,12 @@ import { Exercise, Force, Mechanic, PrimaryMuscles } from "types/exercise";
 type WorkoutItemProps = {
   onPress: () => void;
   exercise: Exercise;
-  index: number;
 };
 
-function WorkoutItem({ onPress, exercise, index }: WorkoutItemProps) {
+function WorkoutItem({ onPress, exercise }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
   return (
     <TouchableOpacity
-      key={String(index)}
       className="flex-row bg-primary border-y-[0.5px] border-ternary mx-2"
       onPress={onPress}
     >
