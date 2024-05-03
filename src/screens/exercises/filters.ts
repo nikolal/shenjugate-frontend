@@ -9,30 +9,49 @@ import {
 export const quadricepsFilter = {
   mechanic: [Mechanic.Compound],
   force: [Force.Push],
-  equipment: [Equipment.Barbell],
-  primary_muscles: [PrimaryMuscles.Quadriceps],
+  equipment: [Equipment.Barbell, Equipment.Dumbbell],
+  primary_muscles: [PrimaryMuscles.Quadriceps, PrimaryMuscles.Glutes],
 };
 
 export const hamstringFilter = {
   mechanic: [Mechanic.Compound],
   force: [Force.Pull],
-  equipment: [Equipment.Barbell],
+  equipment: [Equipment.Barbell, Equipment.Dumbbell],
   primary_muscles: [PrimaryMuscles.Hamstrings],
 };
 
-export const pushFilter = {
+export const pushHorizontalFilter = {
   mechanic: [Mechanic.Compound],
   force: [Force.Push],
-  equipment: [Equipment.Barbell],
-  primary_muscles: [PrimaryMuscles.Chest, PrimaryMuscles.Shoulders],
+  equipment: [Equipment.Barbell, Equipment.Dumbbell],
+  primary_muscles: [PrimaryMuscles.Chest],
 };
 
-export const pullFilterVertical = {
+export const pushVerticalFilter = {
+  mechanic: [Mechanic.Compound],
+  force: [Force.Push],
+  equipment: [Equipment.Barbell, Equipment.Dumbbell],
+  primary_muscles: [PrimaryMuscles.Shoulders],
+};
+
+export const pullHorizontalFilter = {
   mechanic: [Mechanic.Compound],
   force: [Force.Pull],
   equipment: [
     Equipment.Barbell,
-    Equipment.Dumbell,
+    Equipment.Dumbbell,
+    Equipment.Cable,
+    Equipment.Machine,
+  ],
+  primary_muscles: [PrimaryMuscles.MiddleBack],
+};
+
+export const pullVerticalFilter = {
+  mechanic: [Mechanic.Compound],
+  force: [Force.Pull],
+  equipment: [
+    Equipment.Barbell,
+    Equipment.Dumbbell,
     Equipment.Cable,
     Equipment.Machine,
     Equipment.BodyOnly,
@@ -40,94 +59,106 @@ export const pullFilterVertical = {
   primary_muscles: [PrimaryMuscles.Lats],
 };
 
-export const pullFilterHorizontal = {
-  mechanic: [Mechanic.Compound],
+export const assistAbsFilter = {
+  mechanic: [Mechanic.Compound, Mechanic.Isolation],
   force: [Force.Pull],
   equipment: [
     Equipment.Barbell,
-    Equipment.Dumbell,
+    Equipment.Dumbbell,
     Equipment.Cable,
     Equipment.Machine,
-  ],
-  primary_muscles: [PrimaryMuscles.MiddleBack],
-};
-
-export const assistFilterAbs = {
-  mechanic: [Mechanic.Compound, Mechanic.Isolation],
-  force: [Force.Push],
-  equipment: [
-    Equipment.Barbell,
-    Equipment.Dumbell,
-    Equipment.Cable,
-    Equipment.Machine,
+    Equipment.BodyOnly,
   ],
   primary_muscles: [PrimaryMuscles.Abdominals],
 };
 
-export const assistFilterLowerBack = {
+export const assistLowerBackFilter = {
   mechanic: [Mechanic.Compound, Mechanic.Isolation],
   force: [Force.Pull],
   equipment: [
     Equipment.Barbell,
-    Equipment.Dumbell,
+    Equipment.Dumbbell,
     Equipment.Cable,
     Equipment.Machine,
   ],
-  primary_muscles: [PrimaryMuscles.LowerBack],
+  primary_muscles: [PrimaryMuscles.Hamstrings],
 };
 
-export const assistFilterBiceps = {
+export const assistBicepsFilter = {
   mechanic: [Mechanic.Compound, Mechanic.Isolation],
   force: [Force.Pull, Force.Push, Force.Static],
   equipment: [
     Equipment.Barbell,
-    Equipment.Dumbell,
+    Equipment.Dumbbell,
     Equipment.Cable,
     Equipment.Machine,
   ],
   primary_muscles: [PrimaryMuscles.Biceps],
 };
 
-export const assistFilterLowerTriceps = {
+export const assistTricepsFilter = {
   mechanic: [Mechanic.Compound, Mechanic.Isolation],
   force: [Force.Pull, Force.Push, Force.Static],
   equipment: [
     Equipment.Barbell,
-    Equipment.Dumbell,
+    Equipment.Dumbbell,
     Equipment.Cable,
     Equipment.Machine,
   ],
   primary_muscles: [PrimaryMuscles.Triceps],
 };
 
+export const assistRearDeltsFilter = {
+  mechanic: [Mechanic.Compound, Mechanic.Isolation],
+  force: [Force.Pull],
+  equipment: [Equipment.Dumbbell, Equipment.Cable, Equipment.Machine],
+  primary_muscles: [PrimaryMuscles.Shoulders],
+};
+
+export const assistCalvesFilter = {
+  mechanic: [Mechanic.Compound, Mechanic.Isolation],
+  force: [Force.Push],
+  equipment: [
+    Equipment.Barbell,
+    Equipment.Dumbbell,
+    Equipment.Cable,
+    Equipment.Machine,
+  ],
+  primary_muscles: [PrimaryMuscles.Calves],
+};
+
 export const workoutAFilters: { [index: number]: ExerciseFilter } = {
   0: quadricepsFilter,
-  1: pushFilter,
-  2: pullFilterVertical,
-  3: assistFilterAbs,
-  4: assistFilterLowerBack,
+  1: pushHorizontalFilter,
+  2: pullHorizontalFilter,
+  3: assistAbsFilter,
+  4: assistLowerBackFilter,
+  5: assistCalvesFilter,
 };
 
 export const workoutBFilters: { [index: number]: ExerciseFilter } = {
-  0: pushFilter,
+  0: pushVerticalFilter,
   1: hamstringFilter,
-  2: pullFilterVertical,
-  3: assistFilterBiceps,
-  4: assistFilterLowerTriceps,
+  2: pullVerticalFilter,
+  3: assistBicepsFilter,
+  4: assistTricepsFilter,
+  5: assistRearDeltsFilter,
 };
 
 export const workoutCFilters: { [index: number]: ExerciseFilter } = {
   0: hamstringFilter,
-  1: pushFilter,
-  2: pullFilterHorizontal,
-  3: assistFilterAbs,
-  4: assistFilterLowerBack,
+  1: pushVerticalFilter,
+  2: pullVerticalFilter,
+  3: assistAbsFilter,
+  4: assistLowerBackFilter,
+  5: assistCalvesFilter,
 };
 
 export const workoutDFilters: { [index: number]: ExerciseFilter } = {
-  0: pushFilter,
+  0: pushHorizontalFilter,
   1: quadricepsFilter,
-  2: pullFilterVertical,
-  3: assistFilterBiceps,
-  4: assistFilterLowerTriceps,
+  2: pullHorizontalFilter,
+  3: assistBicepsFilter,
+  4: assistTricepsFilter,
+  5: assistRearDeltsFilter,
 };

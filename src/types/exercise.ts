@@ -57,7 +57,7 @@ export enum PrimaryMuscles {
 
 export enum Equipment {
   Barbell = "Barbell",
-  Dumbell = "Dumbell",
+  Dumbbell = "Dumbbell",
   Machine = "Machine",
   Cable = "Cable",
   Kettlebells = "Kettlebells",

@@ -26,6 +26,7 @@ function Workout() {
     excerciseSlot,
     excerciseSlot,
     excerciseSlot,
+    excerciseSlot,
   ]);
   return (
     <View className="flex-1  bg-primary">
