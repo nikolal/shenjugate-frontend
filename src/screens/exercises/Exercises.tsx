@@ -105,7 +105,8 @@ async function fetchExercises(
 function Exercises() {
   const route = useRoute<any>();
   const navigation = useNavigation<any>();
-  const exerciseIndex = route.params.exerciseIndex;
+  const exerciseIndex: number = route.params.exerciseIndex;
+  const updateExerciseSlot = route.params.updateExerciseSlot;
 
   const { status, data, error } = useQuery<any>({
     queryKey: [`exercises${exerciseIndex}`],
@@ -120,6 +121,11 @@ function Exercises() {
   if (status === "error") {
     return <Text>Error: {error.message}</Text>;
   }
+
+  const onEksercisePress = (excercise: Exercise, index: number) => {
+    updateExerciseSlot(excercise, index);
+    navigation.goBack();
+  };
 
   const Item = ({
     exercise,
@@ -154,11 +160,11 @@ function Exercises() {
     <FlatList
       className="bg-primary"
       data={data}
-      renderItem={({ item, index }) => (
+      renderItem={({ item, index }: { item: Exercise; index: number }) => (
         <Item
           exercise={item}
           index={index}
-          onPress={() => navigation.goBack()}
+          onPress={() => onEksercisePress(item, exerciseIndex)}
         />
       )}
       keyExtractor={(item, index) => String(index)}
