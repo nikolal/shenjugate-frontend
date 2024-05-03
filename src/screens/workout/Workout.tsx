@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
+import React, { useCallback, useRef, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import WorkoutItem from "@components/WorkoutItem";
 import { Equipment, Exercise, Force, Mechanic } from "types/exercise";
-// import { ExerciseSlot } from "types/exercise";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { WorkoutType } from "types/workout";
 
 const excerciseSlot: Exercise = {
   category: "N/A",
@@ -16,6 +17,7 @@ const excerciseSlot: Exercise = {
   name: "Select excercise",
   primary_muscles: [],
   secondary_muscles: [],
+  weight: 0,
 };
 
 function Workout() {
@@ -37,8 +39,19 @@ function Workout() {
     );
   }
 
+  // ref
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  // callbacks
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
+
   return (
     <View className="flex-1  bg-primary">
+      <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
+        <Text className="color-white">OPEN ME</Text>
+      </TouchableOpacity>
       {exerciseSlots.map((item: Exercise, index) => {
         return (
           <WorkoutItem
@@ -53,6 +66,28 @@ function Workout() {
           />
         );
       })}
+      <BottomSheet
+        ref={bottomSheetRef}
+        onChange={handleSheetChanges}
+        snapPoints={["50%"]}
+        enablePanDownToClose
+        index={-1}
+      >
+        <BottomSheetView className="bg-white flex-1">
+          {[
+            WorkoutType.StrengthEasy,
+            WorkoutType.StrengthNormal,
+            WorkoutType.StrengthHard,
+            WorkoutType.VolumeEasy,
+            WorkoutType.VolumeNormal,
+            WorkoutType.VolumeHard,
+          ].map((item) => (
+            <TouchableOpacity>
+              <Text>{item}</Text>
+            </TouchableOpacity>
+          ))}
+        </BottomSheetView>
+      </BottomSheet>
     </View>
   );
 }

@@ -9,6 +9,7 @@ export type Exercise = {
   instructions: string[];
   category: string;
   id: string;
+  weight: number;
 };
 
 export type Workout = {

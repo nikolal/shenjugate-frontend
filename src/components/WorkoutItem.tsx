@@ -12,11 +12,11 @@ type WorkoutItemProps = {
 function WorkoutItem({ onPress, exercise }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
   return (
-    <TouchableOpacity
-      className="flex-row bg-primary border-y-[0.5px] border-ternary mx-2"
-      onPress={onPress}
-    >
-      <View className="w-9/12 h-16 flex-row items-center pl-4">
+    <View className="flex-row bg-primary border-y-[0.5px] border-ternary mx-2">
+      <TouchableOpacity
+        className="w-9/12 h-16 flex-row items-center pl-4"
+        onPress={onPress}
+      >
         <Ionicons
           name="barbell"
           size={20}
@@ -27,7 +27,7 @@ function WorkoutItem({ onPress, exercise }: WorkoutItemProps) {
           }
         />
         <Text className="text-md text-white ml-2">{exercise.name}</Text>
-      </View>
+      </TouchableOpacity>
       <View className="w-3/12 h-16 px-2 py-3">
         <View className="h-full bg-secondary flex-row border-[0.5px] border-ternary rounded-lg items-center">
           <TextInput
@@ -42,7 +42,7 @@ function WorkoutItem({ onPress, exercise }: WorkoutItemProps) {
           {/* <Ionicons name="bag-outline" size={20} color={colors.ternary} /> */}
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
