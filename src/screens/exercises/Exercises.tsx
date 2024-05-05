@@ -2,13 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import httpRequest from "@api/httpRequest";
 import { images } from "@images/images";
 import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { Exercise, Force, PrimaryMuscles, Workout } from "types/exercise";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import {
@@ -18,6 +12,8 @@ import {
   workoutDFilters,
 } from "./filters";
 import { workoutExercises } from "@screens/workout/workoutExercises";
+import Button from "@components/Button";
+import colors from "theme/colors";
 
 async function fetchExercises(
   prevWorkout: Workout,
@@ -137,22 +133,33 @@ function Exercises() {
     onPress: () => void;
   }) => {
     return (
-      <TouchableOpacity
-        onPress={onPress}
+      <View
         key={index}
-        className="flex-row justify-between bg-secondary p-3 mt-4 rounded-2xl"
+        className="flex-1 bg-primary p-2.5 m-1 mt-4 rounded-2xl border-[0.5px] border-ternary"
       >
-        <Text className="w-3/5 text-base text-white font-normal">
+        <Image
+          resizeMode="cover"
+          className="w-full h-28 rounded-lg"
+          source={images[exercise.id as keyof typeof images]}
+        />
+        <Text className="text-white text-sm font-light my-2">
           {exercise.name}
         </Text>
-        <View className="w-2/5 h-20">
-          <ImageBackground
-            resizeMode="cover"
-            className="w-full h-20"
-            source={images[exercise.id as keyof typeof images]}
+        <View className="flex-row">
+          <Button
+            onPress={onPress}
+            text={"Info"}
+            iconName="information"
+            iconColor={colors.accentBlue}
+          />
+          <Button
+            onPress={onPress}
+            text={"Add"}
+            iconName="add"
+            iconColor={colors.accentGreen}
           />
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -160,6 +167,7 @@ function Exercises() {
     <FlatList
       className="bg-primary"
       data={data}
+      numColumns={2}
       renderItem={({ item, index }: { item: Exercise; index: number }) => (
         <Item
           exercise={item}
