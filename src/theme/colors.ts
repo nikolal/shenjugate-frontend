@@ -11,7 +11,7 @@ const colors = {
   accentPurple: "#8E69FB",
   accentPink: "#FE498A",
   //
-  buttonBackground: "#11262A",
+  buttonBackground: "#2A2A2A",
   //
   white: "#ffffff",
   black: "#000000",

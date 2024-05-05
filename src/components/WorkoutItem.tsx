@@ -75,9 +75,12 @@ function ExerciseData({ exerciseTemplate }: ExerciseTemplateProps) {
           Weight
         </Text>
       </View>
-      {exerciseTemplate.data.map((data) => {
+      {exerciseTemplate.data.map((data, index) => {
         return (
-          <View className="h-min flex-row border-t-[0.5px] border-ternary">
+          <View
+            key={String(index)}
+            className="h-min flex-row border-t-[0.5px] border-ternary"
+          >
             <Text className="flex-1 text-center text-base text-textPrimary">
               {data.percent}%
             </Text>

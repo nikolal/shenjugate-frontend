@@ -6,15 +6,18 @@ import colors from "theme/colors";
 type ButtonProps = {
   onPress: () => void;
   text: string;
+  iconName: keyof typeof Ionicons.glyphMap;
+  iconColor: string;
 };
 
-function Button({ onPress, text }: ButtonProps) {
+function Button({ onPress, text, iconName, iconColor }: ButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="h-full w-min bg-buttonBackground border-2 border-accent rounded-full flex-row items-center justify-center"
+      className="flex-row 
+      flex-1 h-full w-min bg-buttonBackground border-2 border-accent py-1 px-2 rounded-lg items-center justify-center "
     >
-      <Ionicons name="add" size={24} color={colors.accent} />
+      <Ionicons name={iconName} size={20} color={iconColor} />
       <Text className="text-md text-white">{text}</Text>
     </TouchableOpacity>
   );
