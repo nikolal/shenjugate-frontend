@@ -1,62 +1,102 @@
+import { Exercise } from "types/exercise";
 import { WorkoutTemplate } from "types/workout";
 
+export enum TemplateDifficulty {
+  Easy = "Easy",
+  Normal = "Normal",
+  Hard = "Hard",
+}
+
+export enum TemplateType {
+  Strength = "Strength",
+  Volume = "Volume",
+}
+
+type SelectTemplateProps = {
+  templateDifficulty: TemplateDifficulty;
+  templateType: TemplateType;
+  exercises: Exercise[];
+};
+
+export function selectTemplate({
+  templateDifficulty,
+  templateType,
+  exercises,
+}: SelectTemplateProps): WorkoutTemplate {
+  if (templateType === TemplateType.Strength) {
+    if (templateDifficulty === TemplateDifficulty.Easy) {
+      return strengthEasyTemplate(exercises);
+    } else if (templateDifficulty === TemplateDifficulty.Normal) {
+      return strengthNormalTemplate(exercises);
+    } else if (templateDifficulty === TemplateDifficulty.Hard) {
+      return strengthHardTemplate(exercises);
+    }
+  } else if (templateType === TemplateType.Volume) {
+    if (templateDifficulty === TemplateDifficulty.Easy) {
+      return volumeEasyTemplate(exercises);
+    } else if (templateDifficulty === TemplateDifficulty.Normal) {
+      return volumeNormalTemplate(exercises);
+    } else if (templateDifficulty === TemplateDifficulty.Hard) {
+      return volumeHardTemplate(exercises);
+    }
+  }
+  return volumeNormalTemplate(exercises);
+}
+
 export const strengthEasyTemplate = (
-  strengthExerciseName: string,
-  speedExerciseName: string,
-  pullExerciseName: string,
-  maxWeight: number,
+  exercises: Exercise[],
 ): WorkoutTemplate => {
   return {
-    name: "Strength easy",
+    name: "Strength Easy",
     exercises: [
       {
-        name: strengthExerciseName,
-        data: [
-          {
-            percent: 50,
-            repetitions: 5,
-            sets: 1,
-            weight: (50 / maxWeight) * 100,
-          },
-          {
-            percent: 60,
-            repetitions: 4,
-            sets: 1,
-            weight: (60 / maxWeight) * 100,
-          },
-          {
-            percent: 70,
-            repetitions: 3,
-            sets: 1,
-            weight: (70 / maxWeight) * 100,
-          },
-          {
-            percent: 75,
-            repetitions: 3,
-            sets: 4,
-            weight: (75 / maxWeight) * 100,
-          },
-        ],
-      },
-      {
-        name: speedExerciseName,
+        name: exercises[0].name,
         data: [
           {
             percent: 45,
             repetitions: 2,
             sets: 8,
-            weight: (45 / maxWeight) * 100,
+            weight: 0.45 * exercises[0].weight,
           },
         ],
       },
       {
-        name: pullExerciseName,
+        name: exercises[1].name,
+        data: [
+          {
+            percent: 50,
+            repetitions: 5,
+            sets: 1,
+            weight: 0.5 * exercises[1].weight,
+          },
+          {
+            percent: 60,
+            repetitions: 4,
+            sets: 1,
+            weight: 0.6 * exercises[1].weight,
+          },
+          {
+            percent: 70,
+            repetitions: 3,
+            sets: 1,
+            weight: 0.7 * exercises[1].weight,
+          },
+          {
+            percent: 75,
+            repetitions: 3,
+            sets: 4,
+            weight: 0.75 * exercises[1].weight,
+          },
+        ],
+      },
+      {
+        name: exercises[2].name,
         data: [
           {
             percent: 50,
             repetitions: 8,
             sets: 4,
-            weight: (50 / maxWeight) * 100,
+            weight: 0.6 * exercises[2].weight,
           },
         ],
       },
@@ -65,62 +105,59 @@ export const strengthEasyTemplate = (
 };
 
 export const strengthNormalTemplate = (
-  strengthExerciseName: string,
-  speedExerciseName: string,
-  pullExerciseName: string,
-  maxWeight: number,
+  exercises: Exercise[],
 ): WorkoutTemplate => {
   return {
-    name: "Strength normal",
+    name: "Strength Normal",
     exercises: [
       {
-        name: strengthExerciseName,
-        data: [
-          {
-            percent: 50,
-            repetitions: 5,
-            sets: 1,
-            weight: (50 / maxWeight) * 100,
-          },
-          {
-            percent: 60,
-            repetitions: 4,
-            sets: 1,
-            weight: (60 / maxWeight) * 100,
-          },
-          {
-            percent: 70,
-            repetitions: 3,
-            sets: 1,
-            weight: (70 / maxWeight) * 100,
-          },
-          {
-            percent: 80,
-            repetitions: 3,
-            sets: 4,
-            weight: (80 / maxWeight) * 100,
-          },
-        ],
-      },
-      {
-        name: speedExerciseName,
-        data: [
-          {
-            percent: 50,
-            repetitions: 2,
-            sets: 8,
-            weight: (50 / maxWeight) * 100,
-          },
-        ],
-      },
-      {
-        name: pullExerciseName,
+        name: exercises[0].name,
         data: [
           {
             percent: 55,
             repetitions: 8,
             sets: 4,
-            weight: (55 / maxWeight) * 100,
+            weight: 0.55 * exercises[0].weight,
+          },
+        ],
+      },
+      {
+        name: exercises[1].name,
+        data: [
+          {
+            percent: 50,
+            repetitions: 5,
+            sets: 1,
+            weight: 0.5 * exercises[1].weight,
+          },
+          {
+            percent: 60,
+            repetitions: 4,
+            sets: 1,
+            weight: 0.6 * exercises[1].weight,
+          },
+          {
+            percent: 70,
+            repetitions: 3,
+            sets: 1,
+            weight: 0.7 * exercises[1].weight,
+          },
+          {
+            percent: 80,
+            repetitions: 3,
+            sets: 4,
+            weight: 0.8 * exercises[1].weight,
+          },
+        ],
+      },
+      {
+        name: exercises[2].name,
+        data: [
+          {
+            percent: 50,
+            repetitions: 2,
+            sets: 8,
+            weight: 0.5 * exercises[2].weight,
           },
         ],
       },
@@ -129,68 +166,65 @@ export const strengthNormalTemplate = (
 };
 
 export const strengthHardTemplate = (
-  strengthExerciseName: string,
-  speedExerciseName: string,
-  pullExerciseName: string,
-  maxWeight: number,
+  exercises: Exercise[],
 ): WorkoutTemplate => {
   return {
-    name: "Strength hard",
+    name: "Strength Hard",
     exercises: [
       {
-        name: strengthExerciseName,
-        data: [
-          {
-            percent: 50,
-            repetitions: 5,
-            sets: 1,
-            weight: (50 / maxWeight) * 100,
-          },
-          {
-            percent: 60,
-            repetitions: 4,
-            sets: 1,
-            weight: (60 / maxWeight) * 100,
-          },
-          {
-            percent: 70,
-            repetitions: 3,
-            sets: 1,
-            weight: (70 / maxWeight) * 100,
-          },
-          {
-            percent: 80,
-            repetitions: 3,
-            sets: 1,
-            weight: (80 / maxWeight) * 100,
-          },
-          {
-            percent: 85,
-            repetitions: 3,
-            sets: 3,
-            weight: (85 / maxWeight) * 100,
-          },
-        ],
-      },
-      {
-        name: speedExerciseName,
+        name: exercises[0].name,
         data: [
           {
             percent: 55,
             repetitions: 2,
             sets: 8,
-            weight: (55 / maxWeight) * 100,
+            weight: (55 / exercises[0].weight) * 100,
           },
         ],
       },
       {
-        name: pullExerciseName,
+        name: exercises[1].name,
+        data: [
+          {
+            percent: 50,
+            repetitions: 5,
+            sets: 1,
+            weight: 0.5 * exercises[1].weight,
+          },
+          {
+            percent: 60,
+            repetitions: 4,
+            sets: 1,
+            weight: 0.6 * exercises[1].weight,
+          },
+          {
+            percent: 70,
+            repetitions: 3,
+            sets: 1,
+            weight: 0.7 * exercises[1].weight,
+          },
+          {
+            percent: 80,
+            repetitions: 3,
+            sets: 1,
+            weight: 0.8 * exercises[1].weight,
+          },
+          {
+            percent: 85,
+            repetitions: 3,
+            sets: 3,
+            weight: 0.85 * exercises[1].weight,
+          },
+        ],
+      },
+      {
+        name: exercises[2].name,
         data: [
           {
             percent: 60,
             repetitions: 8,
             sets: 4,
-            weight: (50 / maxWeight) * 100,
+            weight: 0.6 * exercises[2].weight,
           },
         ],
       },
@@ -198,57 +232,52 @@ export const strengthHardTemplate = (
   };
 };
 
-export const volumeEasyTemplate = (
-  strengthExerciseName: string,
-  speedExerciseName: string,
-  pullExerciseName: string,
-  maxWeight: number,
-): WorkoutTemplate => {
+export const volumeEasyTemplate = (exercises: Exercise[]): WorkoutTemplate => {
   return {
-    name: "Volume easy",
+    name: "Volume Easy",
     exercises: [
       {
-        name: strengthExerciseName,
-        data: [
-          {
-            percent: 50,
-            repetitions: 4,
-            sets: 1,
-            weight: (50 / maxWeight) * 100,
-          },
-          {
-            percent: 60,
-            repetitions: 4,
-            sets: 1,
-            weight: (60 / maxWeight) * 100,
-          },
-          {
-            percent: 70,
-            repetitions: 4,
-            sets: 4,
-            weight: (70 / maxWeight) * 100,
-          },
-        ],
-      },
-      {
-        name: speedExerciseName,
+        name: exercises[0].name,
         data: [
           {
             percent: 40,
             repetitions: 3,
             sets: 6,
-            weight: (40 / maxWeight) * 100,
+            weight: 0.4 * exercises[0].weight,
           },
         ],
       },
       {
-        name: pullExerciseName,
+        name: exercises[1].name,
+        data: [
+          {
+            percent: 50,
+            repetitions: 4,
+            sets: 1,
+            weight: 0.5 * exercises[1].weight,
+          },
+          {
+            percent: 60,
+            repetitions: 4,
+            sets: 1,
+            weight: 0.6 * exercises[1].weight,
+          },
+          {
+            percent: 70,
+            repetitions: 4,
+            sets: 4,
+            weight: 0.7 * exercises[1].weight,
+          },
+        ],
+      },
+      {
+        name: exercises[2].name,
         data: [
           {
             percent: 50,
             repetitions: 8,
             sets: 4,
-            weight: (50 / maxWeight) * 100,
+            weight: 0.5 * exercises[2].weight,
           },
         ],
       },
@@ -257,56 +286,54 @@ export const volumeEasyTemplate = (
 };
 
 export const volumeNormalTemplate = (
-  strengthExerciseName: string,
-  speedExerciseName: string,
-  pullExerciseName: string,
-  maxWeight: number,
+  exercises: Exercise[],
 ): WorkoutTemplate => {
   return {
-    name: "Volume normal",
+    name: "Volume Normal",
     exercises: [
       {
-        name: strengthExerciseName,
-        data: [
-          {
-            percent: 50,
-            repetitions: 6,
-            sets: 1,
-            weight: (50 / maxWeight) * 100,
-          },
-          {
-            percent: 60,
-            repetitions: 6,
-            sets: 1,
-            weight: (60 / maxWeight) * 100,
-          },
-          {
-            percent: 65,
-            repetitions: 6,
-            sets: 4,
-            weight: (65 / maxWeight) * 100,
-          },
-        ],
-      },
-      {
-        name: speedExerciseName,
+        name: exercises[0].name,
         data: [
           {
             percent: 40,
             repetitions: 3,
             sets: 8,
-            weight: (40 / maxWeight) * 100,
+            weight: 0.4 * exercises[0].weight,
           },
         ],
       },
       {
-        name: pullExerciseName,
+        name: exercises[1].name,
+        data: [
+          {
+            percent: 50,
+            repetitions: 6,
+            sets: 1,
+            weight: 0.5 * exercises[1].weight,
+          },
+          {
+            percent: 60,
+            repetitions: 6,
+            sets: 1,
+            weight: 0.6 * exercises[1].weight,
+          },
+          {
+            percent: 65,
+            repetitions: 6,
+            sets: 4,
+            weight: 0.65 * exercises[1].weight,
+          },
+        ],
+      },
+
+      {
+        name: exercises[2].name,
         data: [
           {
             percent: 55,
             repetitions: 8,
             sets: 4,
-            weight: (55 / maxWeight) * 100,
+            weight: 0.55 * exercises[2].weight,
           },
         ],
       },
@@ -314,57 +341,52 @@ export const volumeNormalTemplate = (
   };
 };
 
-export const volumeHardTemplate = (
-  strengthExerciseName: string,
-  speedExerciseName: string,
-  pullExerciseName: string,
-  maxWeight: number,
-): WorkoutTemplate => {
+export const volumeHardTemplate = (exercises: Exercise[]): WorkoutTemplate => {
   return {
-    name: "Volume hard",
+    name: "Volume Hard",
     exercises: [
       {
-        name: strengthExerciseName,
-        data: [
-          {
-            percent: 50,
-            repetitions: 5,
-            sets: 1,
-            weight: (50 / maxWeight) * 100,
-          },
-          {
-            percent: 60,
-            repetitions: 5,
-            sets: 1,
-            weight: (60 / maxWeight) * 100,
-          },
-          {
-            percent: 70,
-            repetitions: 5,
-            sets: 5,
-            weight: (70 / maxWeight) * 100,
-          },
-        ],
-      },
-      {
-        name: speedExerciseName,
+        name: exercises[0].name,
         data: [
           {
             percent: 40,
             repetitions: 3,
             sets: 10,
-            weight: (40 / maxWeight) * 100,
+            weight: 0.4 * exercises[0].weight,
           },
         ],
       },
       {
-        name: pullExerciseName,
+        name: exercises[1].name,
+        data: [
+          {
+            percent: 50,
+            repetitions: 5,
+            sets: 1,
+            weight: 0.5 * exercises[1].weight,
+          },
+          {
+            percent: 60,
+            repetitions: 5,
+            sets: 1,
+            weight: 0.6 * exercises[1].weight,
+          },
+          {
+            percent: 70,
+            repetitions: 5,
+            sets: 5,
+            weight: 0.7 * exercises[1].weight,
+          },
+        ],
+      },
+      {
+        name: exercises[2].name,
         data: [
           {
             percent: 60,
             repetitions: 8,
             sets: 4,
-            weight: (60 / maxWeight) * 100,
+            weight: 0.6 * exercises[2].weight,
           },
         ],
       },

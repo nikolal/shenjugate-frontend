@@ -1,14 +1,18 @@
-import React, { useCallback, useRef, useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import WorkoutItem from "@components/WorkoutItem";
 import { Equipment, Exercise, Force, Mechanic } from "types/exercise";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { WorkoutType } from "types/workout";
-import SegmentedControl from "@react-native-segmented-control/segmented-control";
-import colors from "theme/colors";
+import { ExerciseTemplate, WorkoutTemplate } from "types/workout";
+import {
+  TemplateDifficulty,
+  TemplateType,
+  selectTemplate,
+  volumeNormalTemplate,
+} from "./templates";
+import SegmentedControlPicker from "@components/SegmentedControlPicker";
 
-const excerciseSlot: Exercise = {
+const defaultExercise: Exercise = {
   category: "N/A",
   equipment: Equipment.NotAssigned,
   force: Force.NotAssigned,
@@ -25,80 +29,67 @@ const excerciseSlot: Exercise = {
 function Workout() {
   const navigation = useNavigation<any>();
   const [exerciseSlots, setExcerciseSlots] = useState([
-    excerciseSlot,
-    excerciseSlot,
-    excerciseSlot,
-    excerciseSlot,
-    excerciseSlot,
-    excerciseSlot,
+    defaultExercise,
+    defaultExercise,
+    defaultExercise,
+    defaultExercise,
+    defaultExercise,
+    defaultExercise,
   ]);
-  const [workoutType, setWorkoutType] = useState(1);
+  const [template, setTemplate] = useState<WorkoutTemplate>(
+    volumeNormalTemplate(exerciseSlots),
+  );
+  const [templateType, setTemplateType] = useState<TemplateType>(
+    TemplateType.Volume,
+  );
+  const [templateDifficulty, setTemplateDifficulty] =
+    useState<TemplateDifficulty>(TemplateDifficulty.Normal);
 
-  const [workoutDifficulty, setWorkoutDifficulty] = useState(1);
+  useEffect(() => {
+    setTemplate(
+      selectTemplate({
+        templateDifficulty: templateDifficulty,
+        templateType: templateType,
+        exercises: exerciseSlots,
+      }),
+    );
+  }, [templateDifficulty, templateType, exerciseSlots]);
 
-  function updateExerciseSlot(excercise: Exercise, slotIndex: number) {
+  const updateExerciseSlot = (excercise: Exercise, slotIndex: number) => {
     setExcerciseSlots(
       exerciseSlots.map((item, index) =>
         index === slotIndex ? excercise : item,
       ),
     );
-  }
-
-  // ref
-  const bottomSheetRef = useRef<BottomSheet>(null);
-
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+  };
 
   return (
     <View className="flex-1  bg-primary">
       <ScrollView className="flex-1">
-        <Text className="text-sm text-textSecondary my-2">Difficulty</Text>
-        <SegmentedControl
-          values={["Easy", "Normal", "hard"]}
-          selectedIndex={workoutDifficulty}
-          onChange={(event) => {
-            setWorkoutDifficulty(event.nativeEvent.selectedSegmentIndex);
-          }}
-          backgroundColor={colors.secondary}
-          tintColor={colors.ternary}
-          fontStyle={{
-            color: colors.textSecondary,
-            fontWeight: "400",
-          }}
-          activeFontStyle={{
-            color: colors.textPrimary,
-            fontWeight: "400",
-          }}
+        <Text className="text-sm text-textSecondary my-1">Difficulty</Text>
+        <SegmentedControlPicker
+          values={[
+            TemplateDifficulty.Easy,
+            TemplateDifficulty.Normal,
+            TemplateDifficulty.Hard,
+          ]}
+          onValueChange={(value: string) =>
+            setTemplateDifficulty(value as TemplateDifficulty)
+          }
         />
+
         <Text className="text-sm text-textSecondary my-2">Type</Text>
 
-        <SegmentedControl
-          values={["Strength", "Volume"]}
-          selectedIndex={workoutType}
-          onChange={(event) => {
-            setWorkoutType(event.nativeEvent.selectedSegmentIndex);
-          }}
-          backgroundColor={colors.secondary}
-          tintColor={colors.ternary}
-          fontStyle={{
-            color: colors.textSecondary,
-            fontWeight: "400",
-          }}
-          activeFontStyle={{
-            color: colors.textPrimary,
-            fontWeight: "400",
-          }}
+        <SegmentedControlPicker
+          values={[TemplateType.Strength, TemplateType.Volume]}
+          onValueChange={(value: string) =>
+            setTemplateType(value as TemplateType)
+          }
         />
 
         <Text className="text-sm text-textSecondary my-2">Exercises</Text>
 
-        {/* <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
-          <Text className="color-white">OPEN ME</Text>
-        </TouchableOpacity> */}
-        {exerciseSlots.map((item: Exercise, index) => {
+        {template.exercises.map((item: ExerciseTemplate, index) => {
           return (
             <WorkoutItem
               onPress={(): void =>
@@ -107,37 +98,52 @@ function Workout() {
                   updateExerciseSlot: updateExerciseSlot,
                 })
               }
-              exercise={item}
+              exerciseTemplate={item}
               key={String(index)}
-              index={index}
+              exerciseTemplateIndex={index}
             />
           );
         })}
       </ScrollView>
-      <BottomSheet
-        ref={bottomSheetRef}
-        onChange={handleSheetChanges}
-        snapPoints={["50%"]}
-        enablePanDownToClose
-        index={-1}
-      >
-        <BottomSheetView className="bg-white flex-1">
-          {[
-            WorkoutType.StrengthEasy,
-            WorkoutType.StrengthNormal,
-            WorkoutType.StrengthHard,
-            WorkoutType.VolumeEasy,
-            WorkoutType.VolumeNormal,
-            WorkoutType.VolumeHard,
-          ].map((item) => (
-            <TouchableOpacity key={item}>
-              <Text>{item}</Text>
-            </TouchableOpacity>
-          ))}
-        </BottomSheetView>
-      </BottomSheet>
     </View>
   );
 }
 
 export default Workout;
+
+// import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+
+// // ref
+// const bottomSheetRef = useRef<BottomSheet>(null);
+
+// // callbacks
+// const handleSheetChanges = useCallback((index: number) => {
+//   console.log("handleSheetChanges", index);
+// }, []);
+
+//  <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
+//       <Text className="color-white">OPEN ME</Text>
+//     </TouchableOpacity>
+
+/* <BottomSheet
+  ref={bottomSheetRef}
+  onChange={handleSheetChanges}
+  snapPoints={["50%"]}
+  enablePanDownToClose
+  index={-1}
+>
+  <BottomSheetView className="bg-white flex-1">
+    {[
+      WorkoutType.StrengthEasy,
+      WorkoutType.StrengthNormal,
+      WorkoutType.StrengthHard,
+      WorkoutType.VolumeEasy,
+      WorkoutType.VolumeNormal,
+      WorkoutType.VolumeHard,
+    ].map((item) => (
+      <TouchableOpacity key={item}>
+        <Text>{item}</Text>
+      </TouchableOpacity>
+    ))}
+  </BottomSheetView>
+</BottomSheet>; */
