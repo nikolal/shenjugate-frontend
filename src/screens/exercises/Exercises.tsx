@@ -135,7 +135,7 @@ function Exercises() {
     return (
       <View
         key={index}
-        className="flex-1 bg-primary p-2.5 m-1 mt-4 rounded-2xl border-[0.5px] border-ternary"
+        className="flex-1 justify-between bg-primary p-2.5 m-1 mt-4 rounded-2xl border-[0.5px] border-ternary"
       >
         <Image
           resizeMode="cover"
