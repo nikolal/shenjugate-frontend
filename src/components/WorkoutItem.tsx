@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "theme/colors";
-import { ExerciseTemplate } from "types/workout";
+import { ExerciseSlot, ExerciseTemplate } from "types/workout";
 
 type ExerciseTypeProps = {
   index: number;
@@ -55,7 +55,7 @@ function ExerciseType({ index }: ExerciseTypeProps) {
 }
 
 type ExerciseTemplateProps = {
-  exerciseTemplate: ExerciseTemplate;
+  exerciseTemplate: ExerciseSlot;
 };
 
 function ExerciseData({ exerciseTemplate }: ExerciseTemplateProps) {
@@ -102,13 +102,13 @@ function ExerciseData({ exerciseTemplate }: ExerciseTemplateProps) {
 
 type WorkoutItemProps = {
   onPress: () => void;
-  exerciseTemplate: ExerciseTemplate;
+  exerciseSlot: ExerciseSlot;
   exerciseTemplateIndex: number;
 };
 
 function WorkoutItem({
   onPress,
-  exerciseTemplate,
+  exerciseSlot,
   exerciseTemplateIndex,
 }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
@@ -117,12 +117,12 @@ function WorkoutItem({
       <TouchableOpacity className="w-5/12" onPress={onPress}>
         <ExerciseType index={exerciseTemplateIndex} />
         <Text className="text-base text-white font-semibold mr-2">
-          {exerciseTemplate.name}
+          {exerciseSlot.exercise.name}
         </Text>
       </TouchableOpacity>
 
       <View className="w-7/12 h-min justify-center items-end">
-        <ExerciseData exerciseTemplate={exerciseTemplate} />
+        <ExerciseData exerciseTemplate={exerciseSlot} />
         {/* <View className="h-full bg-input flex-row border-[0.5px] border-ternary rounded-lg items-center">
           <TextInput
             className="w-8/12 h-full text-white text-center text-md "

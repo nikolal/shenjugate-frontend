@@ -3,12 +3,13 @@ import { View, Text, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import WorkoutItem from "@components/WorkoutItem";
 import { Equipment, Exercise, Force, Mechanic } from "types/exercise";
-import { ExerciseTemplate, WorkoutTemplate } from "types/workout";
+import { ExerciseData, ExerciseSlot, ExerciseTemplate } from "types/workout";
 import {
   TemplateDifficulty,
   TemplateType,
   selectTemplate,
-  volumeNormalTemplate,
+  strengthEasyTemplate,
+  // volumeNormalTemplate,
 } from "./templates";
 import SegmentedControlPicker from "@components/SegmentedControlPicker";
 
@@ -20,45 +21,56 @@ const defaultExercise: Exercise = {
   instructions: [],
   level: "N/A",
   mechanic: Mechanic.NotAssigned,
-  name: "Select excercise",
+  name: "Select exercise",
   primary_muscles: [],
   secondary_muscles: [],
   weight: 0,
 };
 
+const defaultData: ExerciseData[] = [
+  {
+    percent: 0,
+    repetitions: 0,
+    sets: 0,
+    weight: 0,
+  },
+];
+
+const defaultSlots: ExerciseSlot[] = [
+  { exercise: defaultExercise, data: defaultData },
+  { exercise: defaultExercise, data: defaultData },
+  { exercise: defaultExercise, data: defaultData },
+];
+
 function Workout() {
   const navigation = useNavigation<any>();
-  const [exerciseSlots, setExcerciseSlots] = useState([
-    defaultExercise,
-    defaultExercise,
-    defaultExercise,
-    defaultExercise,
-    defaultExercise,
-    defaultExercise,
-  ]);
-  const [template, setTemplate] = useState<WorkoutTemplate>(
-    volumeNormalTemplate(exerciseSlots),
-  );
+  const [exerciseSlots, setExerciseSlots] =
+    useState<ExerciseSlot[]>(defaultSlots);
+  // const [template, setTemplate] = useState<ExerciseTemplate>(
+  //   volumeNormalTemplate(exerciseSlots),
+  // );
   const [templateType, setTemplateType] = useState<TemplateType>(
     TemplateType.Volume,
   );
   const [templateDifficulty, setTemplateDifficulty] =
     useState<TemplateDifficulty>(TemplateDifficulty.Normal);
 
-  useEffect(() => {
-    setTemplate(
-      selectTemplate({
-        templateDifficulty: templateDifficulty,
-        templateType: templateType,
-        exercises: exerciseSlots,
-      }),
-    );
-  }, [templateDifficulty, templateType, exerciseSlots]);
+  // useEffect(() => {
+  //   setTemplate(
+  //     selectTemplate({
+  //       templateDifficulty: templateDifficulty,
+  //       templateType: templateType,
+  //       exercises: exerciseSlots,
+  //     }),
+  //   );
+  // }, [templateDifficulty, templateType, exerciseSlots]);
 
-  const updateExerciseSlot = (excercise: Exercise, slotIndex: number) => {
-    setExcerciseSlots(
+  const updateExerciseSlot = (exercise: Exercise, slotIndex: number) => {
+    setExerciseSlots(
       exerciseSlots.map((item, index) =>
-        index === slotIndex ? excercise : item,
+        index === slotIndex
+          ? ({ exercise: exercise, data: defaultData } as ExerciseSlot)
+          : item,
       ),
     );
   };
@@ -89,7 +101,23 @@ function Workout() {
 
         <Text className="text-sm text-textSecondary my-2">Exercises</Text>
 
-        {template.exercises.map((item: ExerciseTemplate, index) => {
+        {exerciseSlots.map((item, index) => {
+          return (
+            <WorkoutItem
+              onPress={(): void =>
+                navigation.navigate("Exercises", {
+                  exerciseIndex: index,
+                  updateExerciseSlot: updateExerciseSlot,
+                })
+              }
+              exerciseSlot={item}
+              key={String(index)}
+              exerciseTemplateIndex={index}
+            />
+          );
+        })}
+
+        {/* {template.exercises.map((item: ExerciseTemplate, index) => {
           return (
             <WorkoutItem
               onPress={(): void =>
@@ -103,7 +131,7 @@ function Workout() {
               exerciseTemplateIndex={index}
             />
           );
-        })}
+        })} */}
       </ScrollView>
     </View>
   );
