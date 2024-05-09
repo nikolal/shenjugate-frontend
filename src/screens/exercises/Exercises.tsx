@@ -151,12 +151,14 @@ function Exercises() {
             text={"Info"}
             iconName="information"
             iconColor={colors.accentBlue}
+            buttonStyle="mr-1"
           />
           <Button
             onPress={onPress}
             text={"Add"}
             iconName="add"
             iconColor={colors.accentGreen}
+            buttonStyle="ml-1"
           />
         </View>
       </View>

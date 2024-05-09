@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "theme/colors";
 import { ExerciseSlot, ExerciseTemplate } from "types/workout";
+import Button from "./Button";
 
 type ExerciseTypeProps = {
   index: number;
@@ -104,12 +105,14 @@ type WorkoutItemProps = {
   onPress: () => void;
   exerciseSlot: ExerciseSlot;
   exerciseTemplateIndex: number;
+  openBottomSheet: () => void;
 };
 
 function WorkoutItem({
   onPress,
   exerciseSlot,
   exerciseTemplateIndex,
+  openBottomSheet,
 }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
   return (
@@ -122,6 +125,13 @@ function WorkoutItem({
       </TouchableOpacity>
 
       <View className="w-7/12 h-min justify-center items-end">
+        <Button
+          onPress={openBottomSheet}
+          text={"Select Template"}
+          buttonStyle="mb-4"
+          iconName={"apps"}
+          iconColor={colors.accentBlue}
+        />
         <ExerciseData exerciseTemplate={exerciseSlot} />
         {/* <View className="h-full bg-input flex-row border-[0.5px] border-ternary rounded-lg items-center">
           <TextInput

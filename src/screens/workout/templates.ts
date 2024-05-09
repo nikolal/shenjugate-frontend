@@ -1,5 +1,5 @@
 import { Exercise } from "types/exercise";
-import { ExerciseTemplate } from "types/workout";
+import { ExerciseData, ExerciseTemplate } from "types/workout";
 
 export enum TemplateDifficulty {
   Easy = "Easy",
@@ -15,17 +15,17 @@ export enum TemplateType {
 type SelectTemplateProps = {
   templateDifficulty: TemplateDifficulty;
   templateType: TemplateType;
-  exercises: Exercise[];
+  exercise: Exercise;
 };
 
 export function selectTemplate({
   templateDifficulty,
   templateType,
-  exercises,
-}: SelectTemplateProps): ExerciseTemplate {
+  exercise,
+}: SelectTemplateProps): ExerciseData[] {
   if (templateType === TemplateType.Strength) {
     if (templateDifficulty === TemplateDifficulty.Easy) {
-      return strengthEasyTemplate(exercises);
+      return strengthEasyTemplate(exercise);
     }
     // else if (templateDifficulty === TemplateDifficulty.Normal) {
     //   return strengthNormalTemplate(exercises);
@@ -43,67 +43,36 @@ export function selectTemplate({
   //   }
   // }
   // return volumeNormalTemplate(exercises);
-  return strengthEasyTemplate(exercises);
+  return strengthEasyTemplate(exercise);
 }
 
-export const strengthEasyTemplate = (
-  exercises: Exercise[],
-): ExerciseTemplate => {
-  return {
-    // exercises: [
-    // {
-    //   name: exercises[0].name,
-    //   data: [
-    //     {
-    //       percent: 45,
-    //       repetitions: 2,
-    //       sets: 8,
-    //       weight: 0.45 * exercises[0].weight,
-    //     },
-    //   ],
-    // },
-    // {
-    name: exercises[1].name,
-    data: [
-      {
-        percent: 50,
-        repetitions: 5,
-        sets: 1,
-        weight: 0.5 * exercises[1].weight,
-      },
-      {
-        percent: 60,
-        repetitions: 4,
-        sets: 1,
-        weight: 0.6 * exercises[1].weight,
-      },
-      {
-        percent: 70,
-        repetitions: 3,
-        sets: 1,
-        weight: 0.7 * exercises[1].weight,
-      },
-      {
-        percent: 75,
-        repetitions: 3,
-        sets: 4,
-        weight: 0.75 * exercises[1].weight,
-      },
-    ],
-    // },
-    // {
-    //   name: exercises[2].name,
-    //   data: [
-    //     {
-    //       percent: 50,
-    //       repetitions: 8,
-    //       sets: 4,
-    //       weight: 0.6 * exercises[2].weight,
-    //     },
-    //   ],
-    // },
-    // ],
-  };
+export const strengthEasyTemplate = (exercise: Exercise): ExerciseData[] => {
+  return [
+    {
+      percent: 50,
+      repetitions: 5,
+      sets: 1,
+      weight: 0.5 * exercise.weight,
+    },
+    {
+      percent: 60,
+      repetitions: 4,
+      sets: 1,
+      weight: 0.6 * exercise.weight,
+    },
+    {
+      percent: 70,
+      repetitions: 3,
+      sets: 1,
+      weight: 0.7 * exercise.weight,
+    },
+    {
+      percent: 75,
+      repetitions: 3,
+      sets: 4,
+      weight: 0.75 * exercise.weight,
+    },
+  ];
 };
 
 // export const strengthNormalTemplate = (
