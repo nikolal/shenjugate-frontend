@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "theme/colors";
-import { ExerciseSlot, ExerciseTemplate } from "types/workout";
-import Button from "./Button";
+import { ExerciseSlot } from "types/workout";
+import { TemplateType } from "@screens/workout/templates";
+import IconByTemplateType from "@components/IconByTemplateType";
 
 type ExerciseTypeProps = {
   index: number;
@@ -13,55 +14,53 @@ function ExerciseType({ index }: ExerciseTypeProps) {
   if (index === 0) {
     return (
       <View className="flex-row">
-        <Ionicons name="flash" size={20} color={colors.accentBlue} />
-        <Text className="ml-2  text-sm text-textSecondary">Speed</Text>
+        <IconByTemplateType templateType={TemplateType.Power} text />
       </View>
     );
   } else if (index === 1) {
     return (
       <View className="flex-row">
-        <Ionicons name="barbell" size={20} color={colors.accentRed} />
-        <Text className="ml-2  text-sm text-textSecondary">Strength</Text>
+        <IconByTemplateType templateType={TemplateType.Strength} text />
       </View>
     );
   } else if (index === 2) {
     return (
       <View className="flex-row">
-        <Ionicons name="arrow-redo" size={20} color={colors.accentGreen} />
-        <Text className="ml-2 text-sm text-textSecondary">Repetition</Text>
+        <IconByTemplateType templateType={TemplateType.Hypertrophy} text />
       </View>
     );
   } else if (index === 3) {
     return (
       <View className="flex-row">
-        <Ionicons name="hammer" size={20} color={colors.accentPurple} />
-        <Text className="ml-2 text-sm text-textSecondary">Assistance</Text>
+        <IconByTemplateType templateType={TemplateType.Endurance} text />
       </View>
     );
   } else if (index === 4) {
     return (
       <View className="flex-row">
-        <Ionicons name="medkit" size={20} color={colors.accentPink} />
-        <Text className="ml-2 text-sm text-textSecondary">Weakness</Text>
+        <IconByTemplateType templateType={TemplateType.Assistance} text />
       </View>
     );
   } else if (index === 5) {
     return (
       <View className="flex-row">
-        <Ionicons name="hourglass" size={20} color={colors.accentYellow} />
-        <Text className="ml-2 text-sm text-textSecondary">Endurance</Text>
+        <IconByTemplateType templateType={TemplateType.Speed} text />
       </View>
     );
   }
 }
 
-type ExerciseTemplateProps = {
-  exerciseTemplate: ExerciseSlot;
+type ExerciseTableProps = {
+  exerciseSlot: ExerciseSlot;
+  onPress: () => void;
 };
 
-function ExerciseData({ exerciseTemplate }: ExerciseTemplateProps) {
+function ExerciseTable({ exerciseSlot, onPress }: ExerciseTableProps) {
   return (
-    <View className="h-min bg-secondary flex-column border-[0.5px] p-1 border-ternary rounded-lg">
+    <TouchableOpacity
+      onPress={onPress}
+      className="h-min bg-secondary flex-column border-[0.5px] p-1 border-ternary rounded-lg"
+    >
       <View className="w-full flex-row">
         <Text className="flex-1 text-center text-base text-textSecondary">
           %
@@ -76,28 +75,28 @@ function ExerciseData({ exerciseTemplate }: ExerciseTemplateProps) {
           Weight
         </Text>
       </View>
-      {exerciseTemplate.data.map((data, index) => {
+      {exerciseSlot.data.map((template, index) => {
         return (
           <View
             key={String(index)}
             className="h-min flex-row border-t-[0.5px] border-ternary"
           >
             <Text className="flex-1 text-center text-base text-textPrimary">
-              {data.percent}%
+              {template.percent}%
             </Text>
             <Text className="flex-1 text-center text-base text-textPrimary">
-              {data.repetitions}
+              {template.repetitions}
             </Text>
             <Text className="flex-1 text-center text-base text-textPrimary">
-              {data.sets}
+              {template.sets}
             </Text>
             <Text className="flex-1 text-center text-base text-textPrimary">
-              {data.weight}
+              {template.weight}
             </Text>
           </View>
         );
       })}
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -105,7 +104,7 @@ type WorkoutItemProps = {
   onPress: () => void;
   exerciseSlot: ExerciseSlot;
   exerciseTemplateIndex: number;
-  openBottomSheet: () => void;
+  openBottomSheet: (exerciseSlot: ExerciseSlot) => void;
 };
 
 function WorkoutItem({
@@ -125,14 +124,10 @@ function WorkoutItem({
       </TouchableOpacity>
 
       <View className="w-7/12 h-min justify-center items-end">
-        <Button
-          onPress={openBottomSheet}
-          text={"Select Template"}
-          buttonStyle="mb-4"
-          iconName={"apps"}
-          iconColor={colors.accentBlue}
+        <ExerciseTable
+          exerciseSlot={exerciseSlot}
+          onPress={() => openBottomSheet(exerciseSlot)}
         />
-        <ExerciseData exerciseTemplate={exerciseSlot} />
         {/* <View className="h-full bg-input flex-row border-[0.5px] border-ternary rounded-lg items-center">
           <TextInput
             className="w-8/12 h-full text-white text-center text-md "

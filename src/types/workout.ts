@@ -1,37 +1,18 @@
+import { TemplateType } from "@screens/workout/templates";
 import { Exercise } from "./exercise";
 
-export enum WorkoutType {
-  StrengthEasy = "Strength easy",
-  StrengthNormal = "Strength normal",
-  StrengthHard = "Strength hard",
-  VolumeEasy = "Volume easy",
-  VolumeNormal = "Volume normal",
-  VolumeHard = "Volume hard",
-}
-
 export type ExerciseSlot = {
+  index: number;
   exercise: Exercise;
-  data: ExerciseData[];
+  data: ExerciseTemplate;
+  templateType: TemplateType;
 };
 
-export type ExerciseData = {
+export type ExerciseTemplate = ExerciseTemplateRow[];
+
+type ExerciseTemplateRow = {
   percent: number;
   repetitions: number;
   sets: number;
   weight: number;
 };
-
-export type ExerciseTemplate = {
-  name: string;
-  data: ExerciseData[];
-};
-
-// export type ExerciseTemplate = {
-//   name: string;
-//   data: ExerciseData[];
-// };
-
-// export type WorkoutTemplate = {
-//   name: string;
-//   exercises: ExerciseTemplate[];
-// };
