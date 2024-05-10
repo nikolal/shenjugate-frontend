@@ -14,6 +14,7 @@ import {
 import { workoutExercises } from "@screens/workout/workoutExercises";
 import Button from "@components/Button";
 import colors from "theme/colors";
+import { ExerciseSlot } from "types/workout";
 
 async function fetchExercises(
   prevWorkout: Workout,
@@ -52,7 +53,6 @@ async function fetchExercises(
     isSecondPush &&
     isSecondChestOrShoulders
   ) {
-    console.log("A");
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
       queryParams: workoutBFilters[slotIndex],
@@ -63,7 +63,6 @@ async function fetchExercises(
     isSecondPull &&
     isSecondHamstring
   ) {
-    console.log("B");
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
       queryParams: workoutCFilters[slotIndex],
@@ -74,7 +73,6 @@ async function fetchExercises(
     isSecondPush &&
     isSecondChestOrShoulders
   ) {
-    console.log("C");
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
       queryParams: workoutDFilters[slotIndex],
@@ -85,7 +83,6 @@ async function fetchExercises(
     isSecondPush &&
     isSecondQuadriceps
   ) {
-    console.log("D");
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
       queryParams: workoutAFilters[slotIndex],
@@ -102,7 +99,11 @@ function Exercises() {
   const route = useRoute<any>();
   const navigation = useNavigation<any>();
   const exerciseIndex: number = route.params.exerciseIndex;
-  const updateExerciseSlot = route.params.updateExerciseSlot;
+  const updateExerciseSlot = route.params.updateExerciseSlot as (
+    exerciseSlot: ExerciseSlot,
+  ) => void;
+  const selectedExerciseSlot = route.params
+    .selectedExerciseSlot as ExerciseSlot;
 
   const { status, data, error } = useQuery<any>({
     queryKey: [`exercises${exerciseIndex}`],
@@ -118,8 +119,13 @@ function Exercises() {
     return <Text>Error: {error.message}</Text>;
   }
 
-  const onEksercisePress = (excercise: Exercise, index: number) => {
-    updateExerciseSlot(excercise, index);
+  const onExercisePress = (excercise: Exercise, index: number) => {
+    updateExerciseSlot({
+      exercise: excercise,
+      index: index,
+      data: selectedExerciseSlot.data,
+      templateType: selectedExerciseSlot.templateType,
+    });
     navigation.goBack();
   };
 
@@ -174,7 +180,7 @@ function Exercises() {
         <Item
           exercise={item}
           index={index}
-          onPress={() => onEksercisePress(item, exerciseIndex)}
+          onPress={() => onExercisePress(item, exerciseIndex)}
         />
       )}
       keyExtractor={(item, index) => String(index)}
