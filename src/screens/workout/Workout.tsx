@@ -68,7 +68,7 @@ const defaultSlots: ExerciseSlot[] = [
     exercise: defaultExercise,
     data: defaultTemplate,
     index: 5,
-    templateType: TemplateType.Assistance,
+    templateType: TemplateType.Speed,
   },
 ];
 
