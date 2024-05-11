@@ -59,6 +59,20 @@ export const pullVerticalFilter = {
   primary_muscles: [PrimaryMuscles.Lats],
 };
 
+export const assistHamstringFilter = {
+  mechanic: [Mechanic.Compound],
+  force: [Force.Pull],
+  equipment: [
+    Equipment.Dumbbell,
+    Equipment.Cable,
+    Equipment.BodyOnly,
+    Equipment.Machine,
+    Equipment.Bands,
+    Equipment.Kettlebells,
+  ],
+  primary_muscles: [PrimaryMuscles.Hamstrings],
+};
+
 export const assistAbsFilter = {
   mechanic: [Mechanic.Compound, Mechanic.Isolation],
   force: [Force.Pull],
@@ -86,7 +100,7 @@ export const assistLowerBackFilter = {
 
 export const assistBicepsFilter = {
   mechanic: [Mechanic.Compound, Mechanic.Isolation],
-  force: [Force.Pull, Force.Push, Force.Static],
+  force: [Force.Pull],
   equipment: [
     Equipment.Barbell,
     Equipment.Dumbbell,
@@ -98,7 +112,7 @@ export const assistBicepsFilter = {
 
 export const assistTricepsFilter = {
   mechanic: [Mechanic.Compound, Mechanic.Isolation],
-  force: [Force.Pull, Force.Push, Force.Static],
+  force: [Force.Push],
   equipment: [
     Equipment.Barbell,
     Equipment.Dumbbell,
@@ -128,37 +142,53 @@ export const assistCalvesFilter = {
 };
 
 export const workoutAFilters: { [index: number]: ExerciseFilter } = {
-  0: quadricepsFilter,
-  1: pushHorizontalFilter,
-  2: pullHorizontalFilter,
-  3: assistAbsFilter,
-  4: assistLowerBackFilter,
-  5: assistCalvesFilter,
+  0: pushHorizontalFilter,
+  1: quadricepsFilter,
+  2: pushHorizontalFilter,
+  3: pullHorizontalFilter,
+  4: assistHamstringFilter,
+  5: assistAbsFilter,
+  6: assistCalvesFilter,
+  7: assistRearDeltsFilter,
+  8: assistBicepsFilter,
+  9: assistTricepsFilter,
 };
 
 export const workoutBFilters: { [index: number]: ExerciseFilter } = {
-  0: pushVerticalFilter,
-  1: hamstringFilter,
-  2: pullVerticalFilter,
-  3: assistBicepsFilter,
-  4: assistTricepsFilter,
-  5: assistRearDeltsFilter,
+  0: hamstringFilter,
+  1: pushHorizontalFilter,
+  2: quadricepsFilter,
+  3: pullHorizontalFilter,
+  4: hamstringFilter,
+  5: assistAbsFilter,
+  6: assistCalvesFilter,
+  7: assistRearDeltsFilter,
+  8: assistBicepsFilter,
+  9: assistTricepsFilter,
 };
 
 export const workoutCFilters: { [index: number]: ExerciseFilter } = {
-  0: hamstringFilter,
-  1: pushVerticalFilter,
-  2: pullVerticalFilter,
-  3: assistAbsFilter,
-  4: assistLowerBackFilter,
-  5: assistCalvesFilter,
+  0: pushHorizontalFilter,
+  1: hamstringFilter,
+  2: pushHorizontalFilter,
+  3: pullHorizontalFilter,
+  4: quadricepsFilter,
+  5: assistAbsFilter,
+  6: assistCalvesFilter,
+  7: assistRearDeltsFilter,
+  8: assistBicepsFilter,
+  9: assistTricepsFilter,
 };
 
 export const workoutDFilters: { [index: number]: ExerciseFilter } = {
-  0: pushHorizontalFilter,
-  1: quadricepsFilter,
-  2: pullHorizontalFilter,
-  3: assistBicepsFilter,
-  4: assistTricepsFilter,
-  5: assistRearDeltsFilter,
+  0: quadricepsFilter,
+  1: pushHorizontalFilter,
+  2: hamstringFilter,
+  3: pullHorizontalFilter,
+  4: quadricepsFilter,
+  5: assistAbsFilter,
+  6: assistCalvesFilter,
+  7: assistRearDeltsFilter,
+  8: assistBicepsFilter,
+  9: assistTricepsFilter,
 };
