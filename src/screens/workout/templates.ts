@@ -80,7 +80,10 @@ export function selectTemplate({
     } else if (templateDifficulty === TemplateDifficulty.Hard) {
       return speedHardTemplate(exercise);
     }
-  } else if (templateType === TemplateType.Endurance) {
+  } else if (
+    templateType === TemplateType.Endurance ||
+    templateType === TemplateType.Assistance
+  ) {
     if (templateDifficulty === TemplateDifficulty.Easy) {
       return enduranceEasyTemplate(exercise);
     } else if (templateDifficulty === TemplateDifficulty.Normal) {
@@ -365,7 +368,7 @@ export const enduranceEasyTemplate = (exercise: Exercise): ExerciseTemplate => {
   return [
     {
       percent: 50,
-      repetitions: 10,
+      repetitions: 12,
       sets: 4,
       weight: 0.5 * exercise.weight,
     },
@@ -378,7 +381,7 @@ export const enduranceNormalTemplate = (
   return [
     {
       percent: 50,
-      repetitions: 10,
+      repetitions: 12,
       sets: 4,
       weight: 0.5 * exercise.weight,
     },
@@ -389,7 +392,7 @@ export const enduranceHardTemplate = (exercise: Exercise): ExerciseTemplate => {
   return [
     {
       percent: 50,
-      repetitions: 10,
+      repetitions: 12,
       sets: 4,
       weight: 0.5 * exercise.weight,
     },
