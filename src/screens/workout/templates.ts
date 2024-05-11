@@ -33,9 +33,10 @@ export function selectTemplate({
   exercise,
 }: SelectTemplateProps): ExerciseTemplate {
   if (
-    (templateType === TemplateType.Strength &&
-      exercise.primary_muscles.includes(PrimaryMuscles.Quadriceps)) ||
-    exercise.primary_muscles.includes(PrimaryMuscles.Hamstrings)
+    templateType === TemplateType.Strength &&
+    (exercise.primary_muscles.includes(PrimaryMuscles.Quadriceps) ||
+      exercise.primary_muscles.includes(PrimaryMuscles.Hamstrings) ||
+      exercise.primary_muscles.includes(PrimaryMuscles.Glutes))
   ) {
     if (templateDifficulty === TemplateDifficulty.Easy) {
       return strengthEasyTemplate(exercise);
@@ -45,9 +46,9 @@ export function selectTemplate({
       return strengthHardTemplate(exercise);
     }
   } else if (
-    (templateType === TemplateType.Strength &&
-      exercise.primary_muscles.includes(PrimaryMuscles.Chest)) ||
-    exercise.primary_muscles.includes(PrimaryMuscles.Shoulders)
+    templateType === TemplateType.Strength &&
+    (exercise.primary_muscles.includes(PrimaryMuscles.Chest) ||
+      exercise.primary_muscles.includes(PrimaryMuscles.Shoulders))
   ) {
     if (templateDifficulty === TemplateDifficulty.Easy) {
       return volumeEasyTemplate(exercise);
