@@ -1,4 +1,4 @@
-import { Exercise } from "types/exercise";
+import { Exercise, PrimaryMuscles } from "types/exercise";
 import { ExerciseTemplate } from "types/workout";
 
 export enum TemplateDifficulty {
@@ -32,7 +32,11 @@ export function selectTemplate({
   templateType,
   exercise,
 }: SelectTemplateProps): ExerciseTemplate {
-  if (templateType === TemplateType.Strength) {
+  if (
+    (templateType === TemplateType.Strength &&
+      exercise.primary_muscles.includes(PrimaryMuscles.Quadriceps)) ||
+    exercise.primary_muscles.includes(PrimaryMuscles.Hamstrings)
+  ) {
     if (templateDifficulty === TemplateDifficulty.Easy) {
       return strengthEasyTemplate(exercise);
     } else if (templateDifficulty === TemplateDifficulty.Normal) {
@@ -40,13 +44,25 @@ export function selectTemplate({
     } else if (templateDifficulty === TemplateDifficulty.Hard) {
       return strengthHardTemplate(exercise);
     }
-  } else if (templateType === TemplateType.Hypertrophy) {
+  } else if (
+    (templateType === TemplateType.Strength &&
+      exercise.primary_muscles.includes(PrimaryMuscles.Chest)) ||
+    exercise.primary_muscles.includes(PrimaryMuscles.Shoulders)
+  ) {
     if (templateDifficulty === TemplateDifficulty.Easy) {
       return volumeEasyTemplate(exercise);
     } else if (templateDifficulty === TemplateDifficulty.Normal) {
       return volumeNormalTemplate(exercise);
     } else if (templateDifficulty === TemplateDifficulty.Hard) {
       return volumeHardTemplate(exercise);
+    }
+  } else if (templateType === TemplateType.Hypertrophy) {
+    if (templateDifficulty === TemplateDifficulty.Easy) {
+      return hypertrophyEasyTemplate(exercise);
+    } else if (templateDifficulty === TemplateDifficulty.Normal) {
+      return hypertrophyNormalTemplate(exercise);
+    } else if (templateDifficulty === TemplateDifficulty.Hard) {
+      return hypertrophyHardTemplate(exercise);
     }
   } else if (templateType === TemplateType.Power) {
     if (templateDifficulty === TemplateDifficulty.Easy) {
@@ -236,6 +252,45 @@ export const volumeHardTemplate = (exercise: Exercise): ExerciseTemplate => {
       repetitions: 5,
       sets: 5,
       weight: 0.7 * exercise.weight,
+    },
+  ];
+};
+
+export const hypertrophyEasyTemplate = (
+  exercise: Exercise,
+): ExerciseTemplate => {
+  return [
+    {
+      percent: 50,
+      repetitions: 8,
+      sets: 4,
+      weight: 0.5 * exercise.weight,
+    },
+  ];
+};
+
+export const hypertrophyNormalTemplate = (
+  exercise: Exercise,
+): ExerciseTemplate => {
+  return [
+    {
+      percent: 55,
+      repetitions: 8,
+      sets: 4,
+      weight: 0.5 * exercise.weight,
+    },
+  ];
+};
+
+export const hypertrophyHardTemplate = (
+  exercise: Exercise,
+): ExerciseTemplate => {
+  return [
+    {
+      percent: 60,
+      repetitions: 8,
+      sets: 4,
+      weight: 0.5 * exercise.weight,
     },
   ];
 };

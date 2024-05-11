@@ -16,30 +16,40 @@ import Button from "@components/Button";
 import colors from "theme/colors";
 import { ExerciseSlot } from "types/workout";
 
-async function fetchExercises(
-  prevWorkout: Workout,
-  slotIndex: number,
-): Promise<any> {
+type FetchExercisesProps = {
+  prevWorkout: Workout;
+  slotIndex: number;
+};
+
+async function fetchExercises({
+  prevWorkout,
+  slotIndex,
+}: FetchExercisesProps): Promise<any> {
   const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
 
   const first = prevWorkout.exercises[0];
   const second = prevWorkout.exercises[1];
+
   const isFirstPush = first.force === Force.Push;
-  const isSecondPush = second.force === Force.Push;
   const isFirstPull = first.force === Force.Pull;
-  const isSecondPull = second.force === Force.Pull;
   const isFirstQuadriceps = first.primary_muscles.some(
-    (item) => item === PrimaryMuscles.Quadriceps,
-  );
-  const isSecondQuadriceps = second.primary_muscles.some(
     (item) => item === PrimaryMuscles.Quadriceps,
   );
   const isFirstHamstring = first.primary_muscles.some(
     (item) => item === PrimaryMuscles.Hamstrings,
   );
+
+  const isSecondPush = second.force === Force.Push;
+  const isSecondPull = second.force === Force.Pull;
+
+  const isSecondQuadriceps = second.primary_muscles.some(
+    (item) => item === PrimaryMuscles.Quadriceps,
+  );
+
   const isSecondHamstring = second.primary_muscles.some(
     (item) => item === PrimaryMuscles.Hamstrings,
   );
+
   const isFirstChestOrShoulders =
     first.primary_muscles.some((item) => item === PrimaryMuscles.Chest) ||
     first.primary_muscles.some((item) => item === PrimaryMuscles.Shoulders);
@@ -98,7 +108,6 @@ async function fetchExercises(
 function Exercises() {
   const route = useRoute<any>();
   const navigation = useNavigation<any>();
-  const exerciseIndex: number = route.params.exerciseIndex;
   const updateExerciseSlot = route.params.updateExerciseSlot as (
     exerciseSlot: ExerciseSlot,
   ) => void;
@@ -106,9 +115,12 @@ function Exercises() {
     .selectedExerciseSlot as ExerciseSlot;
 
   const { status, data, error } = useQuery<any>({
-    queryKey: [`exercises${exerciseIndex}`],
+    queryKey: [`exercises${selectedExerciseSlot.index}`],
     queryFn: () =>
-      fetchExercises({ exercises: workoutExercises }, exerciseIndex),
+      fetchExercises({
+        prevWorkout: { exercises: workoutExercises },
+        slotIndex: selectedExerciseSlot.index,
+      }),
   });
 
   if (status === "pending") {
@@ -180,7 +192,7 @@ function Exercises() {
         <Item
           exercise={item}
           index={index}
-          onPress={() => onExercisePress(item, exerciseIndex)}
+          onPress={() => onExercisePress(item, selectedExerciseSlot.index)}
         />
       )}
       keyExtractor={(item, index) => String(index)}

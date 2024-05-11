@@ -81,15 +81,18 @@ function WorkoutItem({
 }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
   return (
-    <View className="flex-row bg-primary border-y-[0.5px] border-ternary mx-1 py-4">
-      <TouchableOpacity className="w-5/12" onPress={onPress}>
+    <TouchableOpacity
+      onPress={onPress}
+      className="flex-row bg-primary border-y-[0.5px] border-ternary mx-1 py-4"
+    >
+      <View className="w-5/12">
         <View className="flex-row">
           <IconByTemplateType templateType={exerciseSlot.templateType} text />
         </View>
         <Text className="text-base text-white font-semibold mr-2">
           {exerciseSlot.exercise.name}
         </Text>
-      </TouchableOpacity>
+      </View>
 
       <View className="w-7/12 h-min justify-center items-end">
         {exerciseSlot.exercise.name !== "Select exercise" && (
@@ -111,7 +114,7 @@ function WorkoutItem({
           <Text className="text-md font-bold color-ternary">KG</Text>
         </View> */}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

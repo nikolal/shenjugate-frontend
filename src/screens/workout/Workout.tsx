@@ -38,37 +38,61 @@ const defaultSlots: ExerciseSlot[] = [
     exercise: defaultExercise,
     data: defaultTemplate,
     index: 0,
-    templateType: TemplateType.Power,
+    templateType: TemplateType.Speed,
   },
   {
     exercise: defaultExercise,
     data: defaultTemplate,
     index: 1,
-    templateType: TemplateType.Strength,
+    templateType: TemplateType.Power,
   },
   {
     exercise: defaultExercise,
     data: defaultTemplate,
     index: 2,
-    templateType: TemplateType.Hypertrophy,
+    templateType: TemplateType.Strength,
   },
   {
     exercise: defaultExercise,
     data: defaultTemplate,
     index: 3,
-    templateType: TemplateType.Endurance,
+    templateType: TemplateType.Hypertrophy,
   },
   {
     exercise: defaultExercise,
     data: defaultTemplate,
     index: 4,
-    templateType: TemplateType.Assistance,
+    templateType: TemplateType.Endurance,
   },
   {
     exercise: defaultExercise,
     data: defaultTemplate,
     index: 5,
-    templateType: TemplateType.Speed,
+    templateType: TemplateType.Assistance,
+  },
+  {
+    exercise: defaultExercise,
+    data: defaultTemplate,
+    index: 6,
+    templateType: TemplateType.Assistance,
+  },
+  {
+    exercise: defaultExercise,
+    data: defaultTemplate,
+    index: 7,
+    templateType: TemplateType.Assistance,
+  },
+  {
+    exercise: defaultExercise,
+    data: defaultTemplate,
+    index: 8,
+    templateType: TemplateType.Assistance,
+  },
+  {
+    exercise: defaultExercise,
+    data: defaultTemplate,
+    index: 9,
+    templateType: TemplateType.Assistance,
   },
 ];
 
@@ -129,15 +153,12 @@ function Workout() {
   return (
     <View className="flex-1  bg-primary">
       <ScrollView className="flex-1">
-        <Text className="text-sm text-textSecondary my-2">Exercises</Text>
-
         {exerciseSlots.map((item, index) => {
           return (
             <WorkoutItem
               key={String(index)}
               onPress={(): void =>
                 navigation.navigate("Exercises", {
-                  exerciseIndex: index,
                   selectedExerciseSlot: item,
                   updateExerciseSlot: updateExerciseSlot,
                 })
