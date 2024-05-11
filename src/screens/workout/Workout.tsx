@@ -134,6 +134,7 @@ function Workout() {
         {exerciseSlots.map((item, index) => {
           return (
             <WorkoutItem
+              key={String(index)}
               onPress={(): void =>
                 navigation.navigate("Exercises", {
                   exerciseIndex: index,
@@ -142,8 +143,6 @@ function Workout() {
                 })
               }
               exerciseSlot={item}
-              key={String(index)}
-              exerciseTemplateIndex={index}
               openBottomSheet={openBottomSheet}
             />
           );

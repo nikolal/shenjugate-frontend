@@ -7,47 +7,15 @@ import { TemplateType } from "@screens/workout/templates";
 import IconByTemplateType from "@components/IconByTemplateType";
 
 type ExerciseTypeProps = {
-  index: number;
+  templateType: TemplateType;
 };
 
-function ExerciseType({ index }: ExerciseTypeProps) {
-  if (index === 0) {
-    return (
-      <View className="flex-row">
-        <IconByTemplateType templateType={TemplateType.Power} text />
-      </View>
-    );
-  } else if (index === 1) {
-    return (
-      <View className="flex-row">
-        <IconByTemplateType templateType={TemplateType.Strength} text />
-      </View>
-    );
-  } else if (index === 2) {
-    return (
-      <View className="flex-row">
-        <IconByTemplateType templateType={TemplateType.Hypertrophy} text />
-      </View>
-    );
-  } else if (index === 3) {
-    return (
-      <View className="flex-row">
-        <IconByTemplateType templateType={TemplateType.Endurance} text />
-      </View>
-    );
-  } else if (index === 4) {
-    return (
-      <View className="flex-row">
-        <IconByTemplateType templateType={TemplateType.Assistance} text />
-      </View>
-    );
-  } else if (index === 5) {
-    return (
-      <View className="flex-row">
-        <IconByTemplateType templateType={TemplateType.Speed} text />
-      </View>
-    );
-  }
+function ExerciseType({ templateType }: ExerciseTypeProps) {
+  return (
+    <View className="flex-row">
+      <IconByTemplateType templateType={templateType} text />
+    </View>
+  );
 }
 
 type ExerciseTableProps = {
@@ -103,31 +71,34 @@ function ExerciseTable({ exerciseSlot, onPress }: ExerciseTableProps) {
 type WorkoutItemProps = {
   onPress: () => void;
   exerciseSlot: ExerciseSlot;
-  exerciseTemplateIndex: number;
   openBottomSheet: (exerciseSlot: ExerciseSlot) => void;
 };
 
 function WorkoutItem({
   onPress,
   exerciseSlot,
-  exerciseTemplateIndex,
   openBottomSheet,
 }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
   return (
     <View className="flex-row bg-primary border-y-[0.5px] border-ternary mx-1 py-4">
       <TouchableOpacity className="w-5/12" onPress={onPress}>
-        <ExerciseType index={exerciseTemplateIndex} />
+        <View className="flex-row">
+          <IconByTemplateType templateType={exerciseSlot.templateType} text />
+        </View>
         <Text className="text-base text-white font-semibold mr-2">
           {exerciseSlot.exercise.name}
         </Text>
       </TouchableOpacity>
 
       <View className="w-7/12 h-min justify-center items-end">
-        <ExerciseTable
-          exerciseSlot={exerciseSlot}
-          onPress={() => openBottomSheet(exerciseSlot)}
-        />
+        {exerciseSlot.exercise.name !== "Select exercise" && (
+          <ExerciseTable
+            exerciseSlot={exerciseSlot}
+            onPress={() => openBottomSheet(exerciseSlot)}
+          />
+        )}
+
         {/* <View className="h-full bg-input flex-row border-[0.5px] border-ternary rounded-lg items-center">
           <TextInput
             className="w-8/12 h-full text-white text-center text-md "
