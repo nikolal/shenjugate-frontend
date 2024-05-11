@@ -19,7 +19,7 @@ const workoutExercisesData = [
     mechanic: "compound",
     name: "Barbell Squat",
     primary_muscles: ["quadriceps"],
-    secondary_muscles: ["calves", "glutes", "hamstrings", "lower back"],
+    secondary_muscles: ["Calves", "Glutes", "Hamstrings", "LowerBack"],
   },
   {
     category: "strength",
@@ -37,8 +37,8 @@ const workoutExercisesData = [
     level: "beginner",
     mechanic: "compound",
     name: "Barbell Bench Press Medium Grip",
-    primary_muscles: ["chest"],
-    secondary_muscles: ["shoulders", "triceps"],
+    primary_muscles: ["Chest"],
+    secondary_muscles: ["Shoulders", "Triceps"],
   },
   {
     category: "strength",
@@ -57,7 +57,7 @@ const workoutExercisesData = [
     mechanic: "compound",
     name: "Seated Cable Rows",
     primary_muscles: ["middle back"],
-    secondary_muscles: ["biceps", "lats", "shoulders"],
+    secondary_muscles: ["Biceps", "Lats", "Shoulders"],
   },
   {
     category: "strength",
@@ -74,7 +74,7 @@ const workoutExercisesData = [
     level: "expert",
     mechanic: "isolation",
     name: "Hanging Leg Raise",
-    primary_muscles: ["abdominals"],
+    primary_muscles: ["Abdominals"],
     secondary_muscles: [],
   },
   {
@@ -94,8 +94,8 @@ const workoutExercisesData = [
     level: "beginner",
     mechanic: "isolation",
     name: "Hyperextensions (Back Extensions)",
-    primary_muscles: ["lower back"],
-    secondary_muscles: ["glutes", "hamstrings"],
+    primary_muscles: ["LowerBack"],
+    secondary_muscles: ["Glutes", "Hamstrings"],
   },
 ];
 const workoutExercises: Exercise[] = workoutExercisesData as Exercise[];
