@@ -34,35 +34,41 @@ export const defaultTemplate: ExerciseTemplate = [
 ];
 
 const defaultSlots: ExerciseSlot[] = [
+  // {
+  //   exercise: defaultExercise,
+  //   data: defaultTemplate,
+  //   index: 0,
+  //   templateType: TemplateType.Speed,
+  // },
   {
     exercise: defaultExercise,
     data: defaultTemplate,
     index: 0,
-    templateType: TemplateType.Speed,
-  },
-  {
-    exercise: defaultExercise,
-    data: defaultTemplate,
-    index: 1,
     templateType: TemplateType.Power,
   },
   {
     exercise: defaultExercise,
     data: defaultTemplate,
-    index: 2,
+    index: 1,
     templateType: TemplateType.Strength,
   },
   {
     exercise: defaultExercise,
     data: defaultTemplate,
-    index: 3,
+    index: 2,
     templateType: TemplateType.Hypertrophy,
   },
   {
     exercise: defaultExercise,
     data: defaultTemplate,
-    index: 4,
+    index: 3,
     templateType: TemplateType.Endurance,
+  },
+  {
+    exercise: defaultExercise,
+    data: defaultTemplate,
+    index: 4,
+    templateType: TemplateType.Assistance,
   },
   {
     exercise: defaultExercise,
@@ -86,12 +92,6 @@ const defaultSlots: ExerciseSlot[] = [
     exercise: defaultExercise,
     data: defaultTemplate,
     index: 8,
-    templateType: TemplateType.Assistance,
-  },
-  {
-    exercise: defaultExercise,
-    data: defaultTemplate,
-    index: 9,
     templateType: TemplateType.Assistance,
   },
 ];

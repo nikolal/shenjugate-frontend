@@ -38,7 +38,7 @@ function IconByTemplateType({ templateType, text }: IconByTemplateTypeProps) {
       <View className="flex-row">
         <Ionicons name={"hammer"} size={20} color={colors.accentGreen} />
         {text && (
-          <Text className="ml-2 text-sm text-textSecondary">Hypertrohy</Text>
+          <Text className="ml-2 text-sm text-textSecondary">Hypertrophy</Text>
         )}
       </View>
     );
@@ -54,7 +54,7 @@ function IconByTemplateType({ templateType, text }: IconByTemplateTypeProps) {
   }
   return (
     <View className="flex-row">
-      <Ionicons name={"flask"} size={20} color={colors.accentPink} />
+      <Ionicons name={"flask"} size={20} color={colors.accentYellow} />
       {text && (
         <Text className="ml-2 text-sm text-textSecondary">Assistance</Text>
       )}
