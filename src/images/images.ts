@@ -52,6 +52,9 @@ export const images = {
   id_Barbell_Hack_Squat: require("../../assets/images/exercises/Barbell_Hack_Squat.gif"),
   id_Barbell_Hip_Thrust: require("../../assets/images/exercises/Barbell_Hip_Thrust.gif"),
   id_Barbell_Incline_Bench_Press___Medium_Grip: require("../../assets/images/exercises/Barbell_Incline_Bench_Press___Medium_Grip.gif"),
+  id_Barbell_Incline_Bench_Press___Narrow_Grip: require("../../assets/images/exercises/Barbell_Incline_Bench_Press___Medium_Grip.gif"),
+  id_Barbell_Incline_Bench_Press___Wide_Grip: require("../../assets/images/exercises/Barbell_Incline_Bench_Press___Medium_Grip.gif"),
+
   id_Barbell_Incline_Shoulder_Raise: require("../../assets/images/exercises/Barbell_Incline_Shoulder_Raise.gif"),
   id_Barbell_Lunge: require("../../assets/images/exercises/Barbell_Lunge.gif"),
   id_Barbell_Rear_Delt_Row: require("../../assets/images/exercises/Barbell_Rear_Delt_Row.gif"),
