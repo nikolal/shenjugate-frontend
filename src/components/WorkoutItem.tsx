@@ -3,8 +3,9 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "theme/colors";
 import { ExerciseSlot } from "types/workout";
-import { TemplateType } from "@screens/workout/templates";
+import { TemplateDifficulty, TemplateType } from "@screens/workout/templates";
 import IconByTemplateType from "@components/IconByTemplateType";
+import Button from "./Button";
 
 type ExerciseTypeProps = {
   templateType: TemplateType;
@@ -20,13 +21,13 @@ function ExerciseType({ templateType }: ExerciseTypeProps) {
 
 type ExerciseTableProps = {
   exerciseSlot: ExerciseSlot;
-  onPress: () => void;
+  // onPress: () => void;
 };
 
-function ExerciseTable({ exerciseSlot, onPress }: ExerciseTableProps) {
+function ExerciseTable({ exerciseSlot }: ExerciseTableProps) {
   return (
-    <TouchableOpacity
-      onPress={onPress}
+    <View
+      // onPress={onPress}
       className="h-min bg-secondary flex-column border-[0.5px] p-1 border-ternary rounded-lg"
     >
       <View className="w-full flex-row">
@@ -64,26 +65,33 @@ function ExerciseTable({ exerciseSlot, onPress }: ExerciseTableProps) {
           </View>
         );
       })}
-    </TouchableOpacity>
+    </View>
   );
 }
 
 type WorkoutItemProps = {
   onPress: () => void;
   exerciseSlot: ExerciseSlot;
-  openBottomSheet: (exerciseSlot: ExerciseSlot) => void;
+  // openBottomSheet: (exerciseSlot: ExerciseSlot) => void;
 };
 
 function WorkoutItem({
   onPress,
   exerciseSlot,
-  openBottomSheet,
+  // openBottomSheet,
 }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
+  function onTemplatePress(arg0: {
+    templateDifficulty: any;
+    templateType: any;
+  }): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="flex-row bg-primary border-y-[0.5px] border-ternary mx-1 py-4"
+      className="flex-row bg-primary border-y-[0.5px] border-ternary mx-1 py-3"
     >
       <View className="w-5/12">
         <View className="flex-row">
@@ -96,10 +104,44 @@ function WorkoutItem({
 
       <View className="w-7/12 h-min justify-center items-end">
         {exerciseSlot.exercise.name !== "Select exercise" && (
-          <ExerciseTable
-            exerciseSlot={exerciseSlot}
-            onPress={() => openBottomSheet(exerciseSlot)}
-          />
+          <>
+            <View className="flex-row mb-1">
+              <Button
+                onPress={() =>
+                  onTemplatePress({
+                    templateDifficulty: TemplateDifficulty.Easy,
+                    templateType: exerciseSlot.templateType,
+                  })
+                }
+                text={"Easy"}
+                buttonStyle="rounded-full bg-primary mr-1 px-4"
+              />
+              <Button
+                onPress={() =>
+                  onTemplatePress({
+                    templateDifficulty: TemplateDifficulty.Normal,
+                    templateType: exerciseSlot.templateType,
+                  })
+                }
+                text={"Normal"}
+                buttonStyle="rounded-full bg-primary mr-1 px-4"
+              />
+              <Button
+                onPress={() =>
+                  onTemplatePress({
+                    templateDifficulty: TemplateDifficulty.Hard,
+                    templateType: exerciseSlot.templateType,
+                  })
+                }
+                text={"Hard"}
+                buttonStyle="rounded-full bg-primary px-4"
+              />
+            </View>
+            <ExerciseTable
+              exerciseSlot={exerciseSlot}
+              // onPress={() => openBottomSheet(exerciseSlot)}
+            />
+          </>
         )}
 
         {/* <View className="h-full bg-input flex-row border-[0.5px] border-ternary rounded-lg items-center">

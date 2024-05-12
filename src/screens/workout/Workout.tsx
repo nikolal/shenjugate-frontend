@@ -164,7 +164,7 @@ function Workout() {
                 })
               }
               exerciseSlot={item}
-              openBottomSheet={openBottomSheet}
+              // openBottomSheet={openBottomSheet}
             />
           );
         })}
