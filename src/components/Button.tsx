@@ -29,7 +29,7 @@ function Button({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`flex-row bg-buttonBackground border-[0.5px] border-ternary py-2 px-2 rounded-lg items-center justify-center ${buttonStyle}`}
+      className={`flex-row bg-squareButtonBackground border-[0.5px] border-ternary py-2 px-2 rounded-lg items-center justify-center ${buttonStyle}`}
     >
       {iconName && (
         <View className="mr-2">
