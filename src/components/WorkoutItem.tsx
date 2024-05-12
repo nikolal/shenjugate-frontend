@@ -1,35 +1,17 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import colors from "theme/colors";
 import { ExerciseSlot } from "types/workout";
 import { TemplateDifficulty, TemplateType } from "@screens/workout/templates";
 import IconByTemplateType from "@components/IconByTemplateType";
 import Button from "./Button";
 
-type ExerciseTypeProps = {
-  templateType: TemplateType;
-};
-
-function ExerciseType({ templateType }: ExerciseTypeProps) {
-  return (
-    <View className="flex-row">
-      <IconByTemplateType templateType={templateType} text />
-    </View>
-  );
-}
-
 type ExerciseTableProps = {
   exerciseSlot: ExerciseSlot;
-  // onPress: () => void;
 };
 
 function ExerciseTable({ exerciseSlot }: ExerciseTableProps) {
   return (
-    <View
-      // onPress={onPress}
-      className="h-min bg-secondary flex-column border-[0.5px] p-1 border-ternary rounded-lg"
-    >
+    <View className="h-min bg-secondary flex-column border-[0.5px] p-1 border-ternary rounded-lg">
       <View className="w-full flex-row">
         <Text className="flex-1 text-center text-base text-textSecondary">
           %
@@ -69,24 +51,39 @@ function ExerciseTable({ exerciseSlot }: ExerciseTableProps) {
   );
 }
 
+function selectButtonColor(
+  exerciseSlot: ExerciseSlot,
+  templateDifficulty: TemplateDifficulty,
+) {
+  if (exerciseSlot.templateDifficulty === templateDifficulty) {
+    return "bg-roundButtonBackground";
+  } else {
+    return "bg-primary";
+  }
+}
+
+type OnTemplatePressProps = {
+  templateType: TemplateType;
+  templateDifficulty: TemplateDifficulty;
+  selectedExerciseSlot: ExerciseSlot;
+};
+
 type WorkoutItemProps = {
   onPress: () => void;
   exerciseSlot: ExerciseSlot;
-  // openBottomSheet: (exerciseSlot: ExerciseSlot) => void;
+  onTemplatePress: ({
+    templateType,
+    templateDifficulty,
+    selectedExerciseSlot,
+  }: OnTemplatePressProps) => void;
 };
 
 function WorkoutItem({
   onPress,
   exerciseSlot,
-  // openBottomSheet,
+  onTemplatePress,
 }: WorkoutItemProps) {
   const [weight, setWeight] = useState<string>("");
-  function onTemplatePress(arg0: {
-    templateDifficulty: any;
-    templateType: any;
-  }): void {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <TouchableOpacity
@@ -105,42 +102,51 @@ function WorkoutItem({
       <View className="w-7/12 h-min justify-center items-end">
         {exerciseSlot.exercise.name !== "Select exercise" && (
           <>
-            <View className="flex-row mb-1">
+            <View className="flex-row mb-2">
               <Button
                 onPress={() =>
                   onTemplatePress({
                     templateDifficulty: TemplateDifficulty.Easy,
                     templateType: exerciseSlot.templateType,
+                    selectedExerciseSlot: {
+                      ...exerciseSlot,
+                      templateDifficulty: TemplateDifficulty.Easy,
+                    },
                   })
                 }
                 text={"Easy"}
-                buttonStyle="rounded-full bg-primary mr-1 px-4"
+                buttonStyle={`rounded-full ${selectButtonColor(exerciseSlot, TemplateDifficulty.Easy)} mr-1 px-4`}
               />
               <Button
                 onPress={() =>
                   onTemplatePress({
                     templateDifficulty: TemplateDifficulty.Normal,
                     templateType: exerciseSlot.templateType,
+                    selectedExerciseSlot: {
+                      ...exerciseSlot,
+                      templateDifficulty: TemplateDifficulty.Normal,
+                    },
                   })
                 }
                 text={"Normal"}
-                buttonStyle="rounded-full bg-primary mr-1 px-4"
+                buttonStyle={`rounded-full ${selectButtonColor(exerciseSlot, TemplateDifficulty.Normal)} mr-1 px-4`}
               />
               <Button
                 onPress={() =>
                   onTemplatePress({
                     templateDifficulty: TemplateDifficulty.Hard,
                     templateType: exerciseSlot.templateType,
+                    selectedExerciseSlot: {
+                      ...exerciseSlot,
+                      templateDifficulty: TemplateDifficulty.Hard,
+                    },
                   })
                 }
                 text={"Hard"}
-                buttonStyle="rounded-full bg-primary px-4"
+                buttonStyle={`rounded-full ${selectButtonColor(exerciseSlot, TemplateDifficulty.Hard)} mr-1 px-4`}
               />
             </View>
-            <ExerciseTable
-              exerciseSlot={exerciseSlot}
-              // onPress={() => openBottomSheet(exerciseSlot)}
-            />
+            <ExerciseTable exerciseSlot={exerciseSlot} />
           </>
         )}
 

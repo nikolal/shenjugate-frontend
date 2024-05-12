@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import httpRequest from "@api/httpRequest";
 import { images } from "@images/images";
 import React from "react";
-import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, Image, ActivityIndicator } from "react-native";
 import { Exercise, Force, PrimaryMuscles, Workout } from "types/exercise";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import {
@@ -124,35 +124,38 @@ function Exercises() {
   });
 
   if (status === "pending") {
-    return <Text>Loading...</Text>;
+    return (
+      <View className="flex-1 justify-center items-center bg-primary">
+        <ActivityIndicator size="large" color={colors.ternary} />
+      </View>
+    );
   }
 
   if (status === "error") {
     return <Text>Error: {error.message}</Text>;
   }
 
-  const onExercisePress = (excercise: Exercise, index: number) => {
+  const onExercisePress = (excercise: Exercise) => {
     updateExerciseSlot({
       exercise: excercise,
-      index: index,
+      index: selectedExerciseSlot.index,
       data: selectedExerciseSlot.data,
       templateType: selectedExerciseSlot.templateType,
+      templateDifficulty: selectedExerciseSlot.templateDifficulty,
     });
     navigation.goBack();
   };
 
   const Item = ({
     exercise,
-    index,
     onPress,
   }: {
     exercise: Exercise;
-    index: number;
     onPress: () => void;
   }) => {
     return (
       <View
-        key={index}
+        key={exercise.id}
         className="flex-1 justify-between bg-primary p-2.5 m-1 mt-4 rounded-2xl border-[0.5px] border-ternary"
       >
         <Image
@@ -188,14 +191,10 @@ function Exercises() {
       className="bg-primary"
       data={data}
       numColumns={2}
-      renderItem={({ item, index }: { item: Exercise; index: number }) => (
-        <Item
-          exercise={item}
-          index={index}
-          onPress={() => onExercisePress(item, selectedExerciseSlot.index)}
-        />
+      renderItem={({ item }: { item: Exercise }) => (
+        <Item exercise={item} onPress={() => onExercisePress(item)} />
       )}
-      keyExtractor={(item, index) => String(index)}
+      keyExtractor={(_, index) => String(index)}
     />
   );
 }

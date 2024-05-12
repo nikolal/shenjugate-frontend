@@ -1,4 +1,4 @@
-import { TemplateType } from "@screens/workout/templates";
+import { TemplateDifficulty, TemplateType } from "@screens/workout/templates";
 import { Exercise } from "./exercise";
 
 export type ExerciseSlot = {
@@ -6,6 +6,7 @@ export type ExerciseSlot = {
   exercise: Exercise;
   data: ExerciseTemplate;
   templateType: TemplateType;
+  templateDifficulty: TemplateDifficulty;
 };
 
 export type ExerciseTemplate = ExerciseTemplateRow[];
