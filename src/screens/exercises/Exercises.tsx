@@ -98,6 +98,10 @@ async function fetchExercises({
       queryParams: workoutAFilters[slotIndex],
     });
   } else {
+    console.log({
+      url: `${baseUrl}/api/v1/exercises`,
+      queryParams: workoutAFilters[slotIndex],
+    });
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
       queryParams: workoutAFilters[slotIndex],
