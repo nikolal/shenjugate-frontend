@@ -98,10 +98,6 @@ async function fetchExercises({
       queryParams: workoutAFilters[slotIndex],
     });
   } else {
-    console.log({
-      url: `${baseUrl}/api/v1/exercises`,
-      queryParams: workoutAFilters[slotIndex],
-    });
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
       queryParams: workoutAFilters[slotIndex],
@@ -164,13 +160,13 @@ function Exercises() {
       >
         <Image
           resizeMode="cover"
-          className="w-full h-28 rounded-lg"
+          className="w-full h-40 rounded-lg"
           source={images[exercise.id as keyof typeof images]}
         />
         <Text className="text-white text-sm font-light my-2">
           {exercise.name}
         </Text>
-        <View className="flex-row">
+        <View className="flex-row justify-around">
           <Button
             onPress={onPress}
             text={"Info"}

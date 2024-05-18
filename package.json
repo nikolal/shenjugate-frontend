@@ -26,7 +26,8 @@
     "react-native-reanimated": "~3.10.1",
     "react-native-gesture-handler": "~2.16.1",
     "@react-native-segmented-control/segmented-control": "2.5.2",
-    "expo-updates": "~0.25.14"
+    "expo-updates": "~0.25.14",
+    "@react-native-async-storage/async-storage": "1.23.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
