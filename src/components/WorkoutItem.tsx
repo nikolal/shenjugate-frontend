@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { ExerciseSlot } from "types/workout";
 import { TemplateDifficulty, TemplateType } from "@screens/workout/templates";
 import IconByTemplateType from "@components/IconByTemplateType";
 import Button from "./Button";
+import Input from "./Input";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type ExerciseTableProps = {
   exerciseSlot: ExerciseSlot;
@@ -83,7 +85,38 @@ function WorkoutItem({
   exerciseSlot,
   onTemplatePress,
 }: WorkoutItemProps) {
-  const [weight, setWeight] = useState<string>("");
+  useEffect(() => {
+    getWeight();
+  }, [exerciseSlot.exercise]);
+
+  const [weight, setWeight] = useState("");
+
+  const getWeight = async () => {
+    try {
+      const value = await AsyncStorage.getItem(
+        `@ExerciseWeight:${exerciseSlot.exercise.id}`,
+      );
+      if (value !== null) {
+        setWeight(value);
+      } else {
+        setWeight("1");
+        setWeight("0");
+      }
+    } catch (e) {
+      console.log(`Error getting ${exerciseSlot.exercise.id}`);
+    }
+  };
+
+  const storeWeight = async (weight: string, exerciseSlot: ExerciseSlot) => {
+    try {
+      await AsyncStorage.setItem(
+        `@ExerciseWeight:${exerciseSlot.exercise.id}`,
+        weight,
+      );
+    } catch (error) {
+      console.log(`Error saving ${exerciseSlot.exercise.id}`);
+    }
+  };
 
   return (
     <TouchableOpacity
@@ -91,15 +124,25 @@ function WorkoutItem({
       className="flex-row bg-primary border-y-[0.5px] border-ternary mx-1 py-3"
     >
       <View className="w-5/12">
-        <View className="flex-row">
-          <IconByTemplateType templateType={exerciseSlot.templateType} text />
+        <>
+          <View className="flex-row">
+            <IconByTemplateType templateType={exerciseSlot.templateType} text />
+          </View>
+          <Text className="text-base text-white font-semibold mr-2 my-2">
+            {exerciseSlot.exercise.name}
+          </Text>
+        </>
+        <View className="flex-1 justify-end">
+          <Input
+            text={weight}
+            keyboardType={"numeric"}
+            textInputStyle={"w-20"}
+            onChange={(weight) => storeWeight(weight, exerciseSlot)}
+          />
         </View>
-        <Text className="text-base text-white font-semibold mr-2">
-          {exerciseSlot.exercise.name}
-        </Text>
       </View>
 
-      <View className="w-7/12 h-min justify-center items-end">
+      <View className="w-7/12 h-min justify-end">
         {exerciseSlot.exercise.name !== "Select exercise" && (
           <>
             <View className="flex-row mb-2">
@@ -149,18 +192,6 @@ function WorkoutItem({
             <ExerciseTable exerciseSlot={exerciseSlot} />
           </>
         )}
-
-        {/* <View className="h-full bg-input flex-row border-[0.5px] border-ternary rounded-lg items-center">
-          <TextInput
-            className="w-8/12 h-full text-white text-center text-md "
-            keyboardType="numeric"
-            onChangeText={(text) => setWeight(text)}
-            value={weight}
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <Text className="text-md font-bold color-ternary">KG</Text>
-        </View> */}
       </View>
     </TouchableOpacity>
   );
