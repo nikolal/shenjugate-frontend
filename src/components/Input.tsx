@@ -37,7 +37,7 @@ function Input({
 
   return (
     <View
-      className={`w-min bg-input flex-row border-[0.5px] border-ternary py-1 rounded-lg items-center ${textInputStyle}`}
+      className={`w-min h-[35px] bg-input flex-row border-[0.5px] border-ternary py-1 rounded-lg items-center ${textInputStyle}`}
     >
       <TextInput
         className={`w-8/12 text-white text-center text-base leading-5 ${textStyle}`}

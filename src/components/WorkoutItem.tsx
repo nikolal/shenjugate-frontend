@@ -9,9 +9,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type ExerciseTableProps = {
   exerciseSlot: ExerciseSlot;
+  weight: number;
 };
 
-function ExerciseTable({ exerciseSlot }: ExerciseTableProps) {
+function ExerciseTable({ exerciseSlot, weight }: ExerciseTableProps) {
   return (
     <View className="h-min bg-secondary flex-column border-[0.5px] p-1 border-ternary rounded-lg">
       <View className="w-full flex-row">
@@ -44,7 +45,7 @@ function ExerciseTable({ exerciseSlot }: ExerciseTableProps) {
               {template.sets}
             </Text>
             <Text className="flex-1 text-center text-base text-textPrimary">
-              {template.weight}
+              {(template.weight * weight).toFixed(1)}
             </Text>
           </View>
         );
@@ -109,6 +110,7 @@ function WorkoutItem({
 
   const storeWeight = async (weight: string, exerciseSlot: ExerciseSlot) => {
     try {
+      setWeight(weight);
       await AsyncStorage.setItem(
         `@ExerciseWeight:${exerciseSlot.exercise.id}`,
         weight,
@@ -132,14 +134,16 @@ function WorkoutItem({
             {exerciseSlot.exercise.name}
           </Text>
         </>
-        <View className="flex-1 justify-end">
-          <Input
-            text={weight}
-            keyboardType={"numeric"}
-            textInputStyle={"w-20"}
-            onChange={(weight) => storeWeight(weight, exerciseSlot)}
-          />
-        </View>
+        {exerciseSlot.exercise.name !== "Select exercise" && (
+          <View className="flex-1 justify-end">
+            <Input
+              text={weight}
+              keyboardType={"numeric"}
+              textInputStyle={"w-20"}
+              onChange={(weight) => storeWeight(weight, exerciseSlot)}
+            />
+          </View>
+        )}
       </View>
 
       <View className="w-7/12 h-min justify-end">
@@ -189,7 +193,10 @@ function WorkoutItem({
                 buttonStyle={`rounded-full ${selectButtonColor(exerciseSlot, TemplateDifficulty.Hard)} mr-1 px-4`}
               />
             </View>
-            <ExerciseTable exerciseSlot={exerciseSlot} />
+            <ExerciseTable
+              exerciseSlot={exerciseSlot}
+              weight={parseInt(weight)}
+            />
           </>
         )}
       </View>
