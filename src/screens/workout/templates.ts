@@ -102,25 +102,25 @@ export const strengthEasyTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 50,
       repetitions: 5,
       sets: 1,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
     {
       percent: 60,
       repetitions: 4,
       sets: 1,
-      weight: 0.6 * exercise.weight,
+      weight: 0.6,
     },
     {
       percent: 70,
       repetitions: 3,
       sets: 1,
-      weight: 0.7 * exercise.weight,
+      weight: 0.7,
     },
     {
       percent: 75,
       repetitions: 3,
       sets: 4,
-      weight: 0.75 * exercise.weight,
+      weight: 0.75,
     },
   ];
 };
@@ -133,25 +133,25 @@ export const strengthNormalTemplate = (
       percent: 50,
       repetitions: 5,
       sets: 1,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
     {
       percent: 60,
       repetitions: 4,
       sets: 1,
-      weight: 0.6 * exercise.weight,
+      weight: 0.6,
     },
     {
       percent: 70,
       repetitions: 3,
       sets: 1,
-      weight: 0.7 * exercise.weight,
+      weight: 0.7,
     },
     {
       percent: 80,
       repetitions: 3,
       sets: 4,
-      weight: 0.8 * exercise.weight,
+      weight: 0.8,
     },
   ];
 };
@@ -162,31 +162,31 @@ export const strengthHardTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 50,
       repetitions: 5,
       sets: 1,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
     {
       percent: 60,
       repetitions: 4,
       sets: 1,
-      weight: 0.6 * exercise.weight,
+      weight: 0.6,
     },
     {
       percent: 70,
       repetitions: 3,
       sets: 1,
-      weight: 0.7 * exercise.weight,
+      weight: 0.7,
     },
     {
       percent: 80,
       repetitions: 3,
       sets: 1,
-      weight: 0.8 * exercise.weight,
+      weight: 0.8,
     },
     {
       percent: 85,
       repetitions: 3,
       sets: 3,
-      weight: 0.85 * exercise.weight,
+      weight: 0.85,
     },
   ];
 };
@@ -197,19 +197,19 @@ export const volumeEasyTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 50,
       repetitions: 4,
       sets: 1,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
     {
       percent: 60,
       repetitions: 4,
       sets: 1,
-      weight: 0.6 * exercise.weight,
+      weight: 0.6,
     },
     {
       percent: 70,
       repetitions: 4,
       sets: 4,
-      weight: 0.7 * exercise.weight,
+      weight: 0.7,
     },
   ];
 };
@@ -220,19 +220,19 @@ export const volumeNormalTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 50,
       repetitions: 6,
       sets: 1,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
     {
       percent: 60,
       repetitions: 6,
       sets: 1,
-      weight: 0.6 * exercise.weight,
+      weight: 0.6,
     },
     {
       percent: 65,
       repetitions: 6,
       sets: 4,
-      weight: 0.65 * exercise.weight,
+      weight: 0.65,
     },
   ];
 };
@@ -243,19 +243,19 @@ export const volumeHardTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 50,
       repetitions: 5,
       sets: 1,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
     {
       percent: 60,
       repetitions: 5,
       sets: 1,
-      weight: 0.6 * exercise.weight,
+      weight: 0.6,
     },
     {
       percent: 70,
       repetitions: 5,
       sets: 5,
-      weight: 0.7 * exercise.weight,
+      weight: 0.7,
     },
   ];
 };
@@ -268,7 +268,7 @@ export const hypertrophyEasyTemplate = (
       percent: 50,
       repetitions: 8,
       sets: 4,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
   ];
 };
@@ -281,7 +281,7 @@ export const hypertrophyNormalTemplate = (
       percent: 55,
       repetitions: 8,
       sets: 4,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
   ];
 };
@@ -294,7 +294,7 @@ export const hypertrophyHardTemplate = (
       percent: 60,
       repetitions: 8,
       sets: 4,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
   ];
 };
@@ -305,7 +305,7 @@ export const powerEasyTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 50,
       repetitions: 3,
       sets: 8,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
   ];
 };
@@ -316,7 +316,7 @@ export const powerNormalTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 55,
       repetitions: 3,
       sets: 8,
-      weight: 0.55 * exercise.weight,
+      weight: 0.55,
     },
   ];
 };
@@ -327,7 +327,7 @@ export const powerHardTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 60,
       repetitions: 3,
       sets: 8,
-      weight: 0.6 * exercise.weight,
+      weight: 0.6,
     },
   ];
 };
@@ -338,7 +338,7 @@ export const speedEasyTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 30,
       repetitions: 3,
       sets: 8,
-      weight: 0.3 * exercise.weight,
+      weight: 0.3,
     },
   ];
 };
@@ -349,7 +349,7 @@ export const speedNormalTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 40,
       repetitions: 3,
       sets: 8,
-      weight: 0.4 * exercise.weight,
+      weight: 0.4,
     },
   ];
 };
@@ -360,7 +360,7 @@ export const speedHardTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 50,
       repetitions: 3,
       sets: 8,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
   ];
 };
@@ -371,7 +371,7 @@ export const enduranceEasyTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 50,
       repetitions: 12,
       sets: 4,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
   ];
 };
@@ -384,7 +384,7 @@ export const enduranceNormalTemplate = (
       percent: 50,
       repetitions: 12,
       sets: 4,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
   ];
 };
@@ -395,7 +395,7 @@ export const enduranceHardTemplate = (exercise: Exercise): ExerciseTemplate => {
       percent: 50,
       repetitions: 12,
       sets: 4,
-      weight: 0.5 * exercise.weight,
+      weight: 0.5,
     },
   ];
 };
