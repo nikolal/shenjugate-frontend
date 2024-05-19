@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { defaultExerciseSlots } from "@screens/workout/Workout";
 import { ExerciseSlot } from "types/workout";
 
 export const getPreviousWorkout = async () => {
@@ -6,6 +7,8 @@ export const getPreviousWorkout = async () => {
     const value = await AsyncStorage.getItem(`@Workout:last`);
     if (value) {
       return JSON.parse(value);
+    } else {
+      return defaultExerciseSlots;
     }
   } catch (e) {
     console.log(`Error getting @Workout:last`);

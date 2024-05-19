@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import WorkoutItem from "components/WorkoutItem";
@@ -14,7 +14,10 @@ import {
   strengthNormalTemplate,
 } from "./templates";
 import Button from "@components/Button";
-import { storePreviousWorkout } from "storage/previousWorkout";
+import {
+  getPreviousWorkout,
+  storePreviousWorkout,
+} from "storage/previousWorkout";
 
 const defaultExercise: Exercise = {
   category: "N/A",
@@ -39,7 +42,7 @@ export const defaultTemplate: ExerciseTemplate = [
   },
 ];
 
-const defaultExerciseSlots: ExerciseSlot[] = [
+export const defaultExerciseSlots: ExerciseSlot[] = [
   {
     exercise: defaultExercise,
     data: powerNormalTemplate(defaultExercise),
@@ -101,8 +104,8 @@ function Workout() {
     });
   };
 
-  const onSubmitPress = () => {
-    storePreviousWorkout(exerciseSlots);
+  const onSubmitPress = async () => {
+    await storePreviousWorkout(exerciseSlots);
     setExerciseSlots(defaultExerciseSlots);
   };
 
