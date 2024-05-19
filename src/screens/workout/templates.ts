@@ -266,9 +266,9 @@ export const hypertrophyEasyTemplate = (
   return [
     {
       percent: 50,
-      repetitions: 8,
+      repetitions: 12,
       sets: 4,
-      weight: 0.5,
+      weight: 0.55,
     },
   ];
 };
@@ -279,9 +279,9 @@ export const hypertrophyNormalTemplate = (
   return [
     {
       percent: 55,
-      repetitions: 8,
+      repetitions: 10,
       sets: 4,
-      weight: 0.5,
+      weight: 0.6,
     },
   ];
 };
@@ -294,7 +294,7 @@ export const hypertrophyHardTemplate = (
       percent: 60,
       repetitions: 8,
       sets: 4,
-      weight: 0.5,
+      weight: 0.65,
     },
   ];
 };

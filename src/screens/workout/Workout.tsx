@@ -37,7 +37,7 @@ export const defaultTemplate: ExerciseTemplate = [
   },
 ];
 
-const defaultSlots: ExerciseSlot[] = [
+const defaultWorkoutA: ExerciseSlot[] = [
   // {
   //   exercise: defaultExercise,
   //   data: defaultTemplate,
@@ -112,7 +112,7 @@ const defaultSlots: ExerciseSlot[] = [
 function Workout() {
   const navigation = useNavigation<any>();
   const [exerciseSlots, setExerciseSlots] =
-    useState<ExerciseSlot[]>(defaultSlots);
+    useState<ExerciseSlot[]>(defaultWorkoutA);
 
   const updateExerciseSlot = (exerciseSlot: ExerciseSlot) => {
     setExerciseSlots(
