@@ -37,13 +37,7 @@ export const defaultTemplate: ExerciseTemplate = [
   },
 ];
 
-const defaultWorkoutA: ExerciseSlot[] = [
-  // {
-  //   exercise: defaultExercise,
-  //   data: defaultTemplate,
-  //   index: 0,
-  //   templateType: TemplateType.Speed,
-  // },
+const defaultExerciseSlots: ExerciseSlot[] = [
   {
     exercise: defaultExercise,
     data: powerNormalTemplate(defaultExercise),
@@ -65,54 +59,12 @@ const defaultWorkoutA: ExerciseSlot[] = [
     templateType: TemplateType.Hypertrophy,
     templateDifficulty: TemplateDifficulty.Normal,
   },
-  {
-    exercise: defaultExercise,
-    data: enduranceNormalTemplate(defaultExercise),
-    index: 3,
-    templateType: TemplateType.Endurance,
-    templateDifficulty: TemplateDifficulty.Normal,
-  },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 4,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 5,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 6,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 7,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 8,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
 ];
 
 function Workout() {
   const navigation = useNavigation<any>();
   const [exerciseSlots, setExerciseSlots] =
-    useState<ExerciseSlot[]>(defaultWorkoutA);
+    useState<ExerciseSlot[]>(defaultExerciseSlots);
 
   const updateExerciseSlot = (exerciseSlot: ExerciseSlot) => {
     setExerciseSlots(
