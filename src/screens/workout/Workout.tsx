@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import WorkoutItem from "@components/WorkoutItem";
+import WorkoutItem from "components/WorkoutItem";
 import { Equipment, Exercise, Force, Mechanic } from "types/exercise";
 import { ExerciseSlot, ExerciseTemplate } from "types/workout";
 import {
   TemplateDifficulty,
   TemplateType,
-  enduranceNormalTemplate,
+  // enduranceNormalTemplate,
   hypertrophyNormalTemplate,
   powerNormalTemplate,
   selectTemplate,
   strengthNormalTemplate,
 } from "./templates";
+import Button from "@components/Button";
+import { storePreviousWorkout } from "storage/previousWorkout";
 
 const defaultExercise: Exercise = {
   category: "N/A",
@@ -37,13 +39,7 @@ export const defaultTemplate: ExerciseTemplate = [
   },
 ];
 
-const defaultSlots: ExerciseSlot[] = [
-  // {
-  //   exercise: defaultExercise,
-  //   data: defaultTemplate,
-  //   index: 0,
-  //   templateType: TemplateType.Speed,
-  // },
+const defaultExerciseSlots: ExerciseSlot[] = [
   {
     exercise: defaultExercise,
     data: powerNormalTemplate(defaultExercise),
@@ -65,54 +61,12 @@ const defaultSlots: ExerciseSlot[] = [
     templateType: TemplateType.Hypertrophy,
     templateDifficulty: TemplateDifficulty.Normal,
   },
-  {
-    exercise: defaultExercise,
-    data: enduranceNormalTemplate(defaultExercise),
-    index: 3,
-    templateType: TemplateType.Endurance,
-    templateDifficulty: TemplateDifficulty.Normal,
-  },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 4,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 5,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 6,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 7,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
-  // {
-  //   exercise: defaultExercise,
-  //   data: enduranceNormalTemplate(defaultExercise),
-  //   index: 8,
-  //   templateType: TemplateType.Assistance,
-  //   templateDifficulty: TemplateDifficulty.Normal,
-  // },
 ];
 
 function Workout() {
   const navigation = useNavigation<any>();
   const [exerciseSlots, setExerciseSlots] =
-    useState<ExerciseSlot[]>(defaultSlots);
+    useState<ExerciseSlot[]>(defaultExerciseSlots);
 
   const updateExerciseSlot = (exerciseSlot: ExerciseSlot) => {
     setExerciseSlots(
@@ -147,6 +101,11 @@ function Workout() {
     });
   };
 
+  const onSubmitPress = () => {
+    storePreviousWorkout(exerciseSlots);
+    setExerciseSlots(defaultExerciseSlots);
+  };
+
   return (
     <View className="flex-1  bg-primary">
       <ScrollView className="flex-1">
@@ -165,6 +124,12 @@ function Workout() {
             />
           );
         })}
+
+        <View className="mt-20 mb-12 mx-4">
+          {exerciseSlots.every((x) => x.exercise.id !== "default_id") && (
+            <Button text="Save Workout" onPress={onSubmitPress} />
+          )}
+        </View>
       </ScrollView>
     </View>
   );

@@ -5,6 +5,25 @@ const workoutExercisesData = [
     category: "strength",
     equipment: "barbell",
     force: "push",
+    id: "id_Barbell_Bench_Press___Medium_Grip",
+
+    instructions: [
+      "Lie back on a flat bench. Using a medium width grip (a grip that creates a 90_degree angle in the middle of the movement between the forearms and the upper arms), lift the bar from the rack and hold it straight over you with your arms locked. This will be your starting position.",
+      "From the starting position, breathe in and begin coming down slowly until the bar touches your middle chest.",
+      "After a brief pause, push the bar back to the starting position as you breathe out. Focus on pushing the bar using your chest muscles. Lock your arms and squeeze your chest in the contracted position at the top of the motion, hold for a second and then start coming down slowly again. Tip: Ideally, lowering the weight should take about twice as long as raising it.",
+      "Repeat the movement for the prescribed amount of repetitions.",
+      "When you are done, place the bar back in the rack.",
+    ],
+    level: "beginner",
+    mechanic: "compound",
+    name: "Barbell Bench Press Medium Grip",
+    primary_muscles: ["Chest"],
+    secondary_muscles: ["Shoulders", "Triceps"],
+  },
+  {
+    category: "strength",
+    equipment: "barbell",
+    force: "push",
     id: "id_Barbell_Squat",
 
     instructions: [
@@ -20,25 +39,6 @@ const workoutExercisesData = [
     name: "Barbell Squat",
     primary_muscles: ["quadriceps"],
     secondary_muscles: ["Calves", "Glutes", "Hamstrings", "LowerBack"],
-  },
-  {
-    category: "strength",
-    equipment: "barbell",
-    force: "push",
-    id: "id_Barbell_Bench_Press___Medium_Grip",
-
-    instructions: [
-      "Lie back on a flat bench. Using a medium width grip (a grip that creates a 90_degree angle in the middle of the movement between the forearms and the upper arms), lift the bar from the rack and hold it straight over you with your arms locked. This will be your starting position.",
-      "From the starting position, breathe in and begin coming down slowly until the bar touches your middle chest.",
-      "After a brief pause, push the bar back to the starting position as you breathe out. Focus on pushing the bar using your chest muscles. Lock your arms and squeeze your chest in the contracted position at the top of the motion, hold for a second and then start coming down slowly again. Tip: Ideally, lowering the weight should take about twice as long as raising it.",
-      "Repeat the movement for the prescribed amount of repetitions.",
-      "When you are done, place the bar back in the rack.",
-    ],
-    level: "beginner",
-    mechanic: "compound",
-    name: "Barbell Bench Press Medium Grip",
-    primary_muscles: ["Chest"],
-    secondary_muscles: ["Shoulders", "Triceps"],
   },
   {
     category: "strength",

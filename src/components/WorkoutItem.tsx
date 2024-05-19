@@ -127,7 +127,7 @@ function WorkoutItem({
     >
       <View className="w-5/12">
         <>
-          <View className="flex-row">
+          <View className="flex-1 flex-row">
             <IconByTemplateType templateType={exerciseSlot.templateType} text />
           </View>
           <Text className="text-base text-white font-semibold mr-2 my-2">
