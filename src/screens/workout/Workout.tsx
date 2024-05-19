@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import WorkoutItem from "@components/WorkoutItem";
+import WorkoutItem from "components/WorkoutItem";
 import { Equipment, Exercise, Force, Mechanic } from "types/exercise";
 import { ExerciseSlot, ExerciseTemplate } from "types/workout";
 import {
   TemplateDifficulty,
   TemplateType,
-  enduranceNormalTemplate,
+  // enduranceNormalTemplate,
   hypertrophyNormalTemplate,
   powerNormalTemplate,
   selectTemplate,
   strengthNormalTemplate,
 } from "./templates";
+import Button from "@components/Button";
+import { storePreviousWorkout } from "storage/previousWorkout";
 
 const defaultExercise: Exercise = {
   category: "N/A",
@@ -99,6 +101,11 @@ function Workout() {
     });
   };
 
+  const onSubmitPress = () => {
+    storePreviousWorkout(exerciseSlots);
+    setExerciseSlots(defaultExerciseSlots);
+  };
+
   return (
     <View className="flex-1  bg-primary">
       <ScrollView className="flex-1">
@@ -117,6 +124,12 @@ function Workout() {
             />
           );
         })}
+
+        <View className="mt-20 mb-12 mx-4">
+          {exerciseSlots.every((x) => x.exercise.id !== "default_id") && (
+            <Button text="Save Workout" onPress={onSubmitPress} />
+          )}
+        </View>
       </ScrollView>
     </View>
   );

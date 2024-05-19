@@ -15,9 +15,10 @@ import { workoutExercises } from "@screens/workout/workoutExercises";
 import Button from "@components/Button";
 import colors from "theme/colors";
 import { ExerciseSlot } from "types/workout";
+import { getPreviousWorkout } from "storage/previousWorkout";
 
 type FetchExercisesProps = {
-  prevWorkout: Workout;
+  prevWorkout: ExerciseSlot[];
   slotIndex: number;
 };
 
@@ -27,11 +28,14 @@ async function fetchExercises({
 }: FetchExercisesProps): Promise<any> {
   const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
 
-  const first = prevWorkout.exercises[0];
-  const second = prevWorkout.exercises[1];
+  const first = prevWorkout[0].exercise;
+  const second = prevWorkout[1].exercise;
 
-  const isFirstPush = first.force === Force.Push;
-  const isFirstPull = first.force === Force.Pull;
+  // console.log("first", first);
+  // console.log("second", second);
+
+  const isFirstPush = first.force === Force.Push.toLowerCase();
+  const isFirstPull = first.force === Force.Pull.toLowerCase();
   const isFirstQuadriceps = first.primary_muscles.some(
     (item) => item === PrimaryMuscles.Quadriceps,
   );
@@ -39,8 +43,8 @@ async function fetchExercises({
     (item) => item === PrimaryMuscles.Hamstrings,
   );
 
-  const isSecondPush = second.force === Force.Push;
-  const isSecondPull = second.force === Force.Pull;
+  const isSecondPush = second.force === Force.Push.toLowerCase();
+  const isSecondPull = second.force === Force.Pull.toLowerCase();
 
   const isSecondQuadriceps = second.primary_muscles.some(
     (item) => item === PrimaryMuscles.Quadriceps,
@@ -58,11 +62,23 @@ async function fetchExercises({
     second.primary_muscles.some((item) => item === PrimaryMuscles.Shoulders);
 
   if (
+    isFirstPull &&
+    isFirstHamstring &&
+    isSecondPush &&
+    isSecondChestOrShoulders
+  ) {
+    // console.log("A");
+    return await httpRequest({
+      url: `${baseUrl}/api/v1/exercises`,
+      queryParams: workoutAFilters[slotIndex],
+    });
+  } else if (
     isFirstPush &&
     isFirstQuadriceps &&
     isSecondPush &&
     isSecondChestOrShoulders
   ) {
+    // console.log("B");
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
       queryParams: workoutBFilters[slotIndex],
@@ -73,19 +89,10 @@ async function fetchExercises({
     isSecondPull &&
     isSecondHamstring
   ) {
+    // console.log("C");
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
       queryParams: workoutCFilters[slotIndex],
-    });
-  } else if (
-    isFirstPull &&
-    isFirstHamstring &&
-    isSecondPush &&
-    isSecondChestOrShoulders
-  ) {
-    return await httpRequest({
-      url: `${baseUrl}/api/v1/exercises`,
-      queryParams: workoutDFilters[slotIndex],
     });
   } else if (
     isFirstPush &&
@@ -93,11 +100,13 @@ async function fetchExercises({
     isSecondPush &&
     isSecondQuadriceps
   ) {
+    // console.log("D");
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
-      queryParams: workoutAFilters[slotIndex],
+      queryParams: workoutDFilters[slotIndex],
     });
   } else {
+    // console.log("E");
     return await httpRequest({
       url: `${baseUrl}/api/v1/exercises`,
       queryParams: workoutAFilters[slotIndex],
@@ -116,11 +125,13 @@ function Exercises() {
 
   const { status, data, error } = useQuery<any>({
     queryKey: [`exercises${selectedExerciseSlot.index}`],
-    queryFn: () =>
-      fetchExercises({
-        prevWorkout: { exercises: workoutExercises },
+    queryFn: async () => {
+      let previousWorkout: ExerciseSlot[] = await getPreviousWorkout();
+      return fetchExercises({
+        prevWorkout: previousWorkout,
         slotIndex: selectedExerciseSlot.index,
-      }),
+      });
+    },
   });
 
   if (status === "pending") {

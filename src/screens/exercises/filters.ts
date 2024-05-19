@@ -175,49 +175,25 @@ export const assistCalvesFilter = {
 };
 
 export const workoutAFilters: { [index: number]: ExerciseFilter } = {
-  0: pushFilter,
-  1: quadricepsFilter,
+  0: quadricepsFilter,
+  1: pushFilter,
   2: pullFilter,
-  3: assistHamstringFilter,
-  4: assistAbsFilter,
-  5: assistRearDeltsFilter,
-  6: assistCalvesFilter,
-  7: assistBicepsFilter,
-  8: assistTricepsFilter,
 };
 
 export const workoutBFilters: { [index: number]: ExerciseFilter } = {
-  0: hamstringFilter,
-  1: pushFilter,
+  0: pushFilter,
+  1: hamstringFilter,
   2: pullFilter,
-  3: assistQuadricepsFilter,
-  4: assistAbsFilter,
-  5: assistRearDeltsFilter,
-  6: assistCalvesFilter,
-  7: assistBicepsFilter,
-  8: assistTricepsFilter,
 };
 
 export const workoutCFilters: { [index: number]: ExerciseFilter } = {
   0: pushFilter,
-  1: hamstringFilter,
+  1: quadricepsFilter,
   2: pullFilter,
-  3: assistQuadricepsFilter,
-  4: assistAbsFilter,
-  5: assistRearDeltsFilter,
-  6: assistCalvesFilter,
-  7: assistBicepsFilter,
-  8: assistTricepsFilter,
 };
 
 export const workoutDFilters: { [index: number]: ExerciseFilter } = {
-  0: quadricepsFilter,
+  0: hamstringFilter,
   1: pushFilter,
   2: pullFilter,
-  3: assistHamstringFilter,
-  4: assistAbsFilter,
-  5: assistRearDeltsFilter,
-  6: assistCalvesFilter,
-  7: assistBicepsFilter,
-  8: assistTricepsFilter,
 };
