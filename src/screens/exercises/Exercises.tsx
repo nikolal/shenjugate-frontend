@@ -200,7 +200,9 @@ function Exercises() {
   return (
     <FlatList
       className="bg-primary"
-      data={data}
+      data={data.sort((a: Exercise, b: Exercise) =>
+        a.priority < b.priority ? -1 : 1,
+      )}
       numColumns={2}
       renderItem={({ item }: { item: Exercise }) => (
         <Item exercise={item} onPress={() => onExercisePress(item)} />

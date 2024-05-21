@@ -10,6 +10,7 @@ export type Exercise = {
   category: string;
   id: string;
   weight: number;
+  priority: number;
 };
 
 export type Workout = {
