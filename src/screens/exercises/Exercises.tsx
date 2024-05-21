@@ -15,7 +15,7 @@ import { workoutExercises } from "@screens/workout/workoutExercises";
 import Button from "@components/Button";
 import colors from "theme/colors";
 import { ExerciseSlot } from "types/workout";
-import { getPreviousWorkout } from "storage/previousWorkout";
+import { getLastWorkout } from "storage/workout";
 
 type FetchExercisesProps = {
   prevWorkout: ExerciseSlot[];
@@ -126,7 +126,7 @@ function Exercises() {
   const { status, data, error } = useQuery<any>({
     queryKey: [`exercises${selectedExerciseSlot.index}`],
     queryFn: async () => {
-      let previousWorkout: ExerciseSlot[] = await getPreviousWorkout();
+      let previousWorkout: ExerciseSlot[] = await getLastWorkout();
       return fetchExercises({
         prevWorkout: previousWorkout,
         slotIndex: selectedExerciseSlot.index,
