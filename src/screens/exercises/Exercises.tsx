@@ -11,7 +11,6 @@ import {
   workoutCFilters,
   workoutDFilters,
 } from "./filters";
-import { workoutExercises } from "@screens/workout/workoutExercises";
 import Button from "@components/Button";
 import colors from "theme/colors";
 import { ExerciseSlot } from "types/workout";
@@ -154,6 +153,7 @@ function Exercises() {
       templateType: selectedExerciseSlot.templateType,
       templateDifficulty: selectedExerciseSlot.templateDifficulty,
     });
+
     navigation.goBack();
   };
 
