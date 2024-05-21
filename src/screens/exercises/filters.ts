@@ -17,7 +17,7 @@ export const hamstringFilter = {
   mechanic: [Mechanic.Compound],
   force: [Force.Pull],
   equipment: [Equipment.Barbell, Equipment.Dumbbell],
-  primary_muscles: [PrimaryMuscles.Hamstrings],
+  primary_muscles: [PrimaryMuscles.Hamstrings, PrimaryMuscles.LowerBack],
 };
 
 export const pushFilter = {
