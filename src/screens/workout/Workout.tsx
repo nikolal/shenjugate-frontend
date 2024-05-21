@@ -15,9 +15,10 @@ import {
 } from "./templates";
 import Button from "@components/Button";
 import {
-  getPreviousWorkout,
-  storePreviousWorkout,
-} from "storage/previousWorkout";
+  getNextWorkout,
+  storeLastWorkout,
+  storeNextWorkout,
+} from "storage/workout";
 
 const defaultExercise: Exercise = {
   category: "N/A",
@@ -71,12 +72,21 @@ function Workout() {
   const [exerciseSlots, setExerciseSlots] =
     useState<ExerciseSlot[]>(defaultExerciseSlots);
 
-  const updateExerciseSlot = (exerciseSlot: ExerciseSlot) => {
-    setExerciseSlots(
-      exerciseSlots.map((item) =>
-        item.index === exerciseSlot.index ? exerciseSlot : item,
-      ),
+  useEffect(() => {
+    setNextWorkout();
+  }, []);
+
+  const setNextWorkout = async () => {
+    const nextWorkout = await getNextWorkout();
+    setExerciseSlots(nextWorkout);
+  };
+
+  const updateExerciseSlot = async (exerciseSlot: ExerciseSlot) => {
+    const newWorkout = exerciseSlots.map((item) =>
+      item.index === exerciseSlot.index ? exerciseSlot : item,
     );
+    await storeNextWorkout(newWorkout);
+    setExerciseSlots(newWorkout);
   };
 
   type OnTemplatePressProps = {
@@ -105,7 +115,8 @@ function Workout() {
   };
 
   const onSubmitPress = async () => {
-    await storePreviousWorkout(exerciseSlots);
+    await storeLastWorkout(exerciseSlots);
+    await storeNextWorkout(defaultExerciseSlots);
     setExerciseSlots(defaultExerciseSlots);
   };
 

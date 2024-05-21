@@ -11,11 +11,10 @@ import {
   workoutCFilters,
   workoutDFilters,
 } from "./filters";
-import { workoutExercises } from "@screens/workout/workoutExercises";
 import Button from "@components/Button";
 import colors from "theme/colors";
 import { ExerciseSlot } from "types/workout";
-import { getPreviousWorkout } from "storage/previousWorkout";
+import { getLastWorkout } from "storage/workout";
 
 type FetchExercisesProps = {
   prevWorkout: ExerciseSlot[];
@@ -126,7 +125,7 @@ function Exercises() {
   const { status, data, error } = useQuery<any>({
     queryKey: [`exercises${selectedExerciseSlot.index}`],
     queryFn: async () => {
-      let previousWorkout: ExerciseSlot[] = await getPreviousWorkout();
+      let previousWorkout: ExerciseSlot[] = await getLastWorkout();
       return fetchExercises({
         prevWorkout: previousWorkout,
         slotIndex: selectedExerciseSlot.index,
@@ -154,6 +153,7 @@ function Exercises() {
       templateType: selectedExerciseSlot.templateType,
       templateDifficulty: selectedExerciseSlot.templateDifficulty,
     });
+
     navigation.goBack();
   };
 
@@ -200,7 +200,9 @@ function Exercises() {
   return (
     <FlatList
       className="bg-primary"
-      data={data}
+      data={data.sort((a: Exercise, b: Exercise) =>
+        a.priority < b.priority ? -1 : 1,
+      )}
       numColumns={2}
       renderItem={({ item }: { item: Exercise }) => (
         <Item exercise={item} onPress={() => onExercisePress(item)} />

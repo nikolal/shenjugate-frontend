@@ -15,7 +15,7 @@ function IconByTemplateType({ templateType, text }: IconByTemplateTypeProps) {
       <View className="flex-row">
         <Ionicons name={"barbell"} size={20} color={colors.accentBlue} />
         {text && (
-          <Text className="ml-2 text-sm text-textSecondary">Strength</Text>
+          <Text className="ml-2 text-base text-textSecondary">Strength</Text>
         )}
       </View>
     );
@@ -23,14 +23,18 @@ function IconByTemplateType({ templateType, text }: IconByTemplateTypeProps) {
     return (
       <View className="flex-row">
         <Ionicons name={"flame"} size={20} color={colors.accentRed} />
-        {text && <Text className="ml-2 text-sm text-textSecondary">Power</Text>}
+        {text && (
+          <Text className="ml-2 text-base text-textSecondary">Power</Text>
+        )}
       </View>
     );
   } else if (templateType === TemplateType.Speed) {
     return (
       <View className="flex-row">
         <Ionicons name={"flash"} size={20} color={colors.accentYellow} />
-        {text && <Text className="ml-2 text-sm text-textSecondary">Speed</Text>}
+        {text && (
+          <Text className="ml-2 text-base text-textSecondary">Speed</Text>
+        )}
       </View>
     );
   } else if (templateType === TemplateType.Hypertrophy) {
@@ -38,7 +42,7 @@ function IconByTemplateType({ templateType, text }: IconByTemplateTypeProps) {
       <View className="flex-row">
         <Ionicons name={"hammer"} size={20} color={colors.accentGreen} />
         {text && (
-          <Text className="ml-2 text-sm text-textSecondary">Hypertrophy</Text>
+          <Text className="ml-2 text-base text-textSecondary">Volume</Text>
         )}
       </View>
     );
