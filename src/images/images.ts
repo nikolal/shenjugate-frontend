@@ -230,7 +230,7 @@ export const images = {
   //   id_Dumbbell_Flyes: require("../../assets/images/exercises/Dumbbell_Flyes.gif"),
   id_Dumbbell_Incline_Row: require("../../assets/images/exercises/Dumbbell_Incline_Row.gif"),
   //   id_Dumbbell_Incline_Shoulder_Raise: require("../../assets/images/exercises/Dumbbell_Incline_Shoulder_Raise.gif"),
-  //   id_Dumbbell_Lunges: require("../../assets/images/exercises/Dumbbell_Lunges.gif"),
+  id_Dumbbell_Lunges: require("../../assets/images/exercises/Dumbbell_Lunges.gif"),
   //   id_Dumbbell_Lying_One_Arm_Rear_Lateral_Raise: require("../../assets/images/exercises/Dumbbell_Lying_One_Arm_Rear_Lateral_Raise.gif"),
   //   id_Dumbbell_Lying_Pronation: require("../../assets/images/exercises/Dumbbell_Lying_Pronation.gif"),
   //   id_Dumbbell_Lying_Rear_Lateral_Raise: require("../../assets/images/exercises/Dumbbell_Lying_Rear_Lateral_Raise.gif"),
