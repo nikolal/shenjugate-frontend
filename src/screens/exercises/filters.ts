@@ -35,6 +35,7 @@ export const pullFilter = {
     Equipment.Dumbbell,
     Equipment.Cable,
     Equipment.Machine,
+    Equipment.BodyOnly,
   ],
   primary_muscles: [PrimaryMuscles.MiddleBack, PrimaryMuscles.Lats],
 };

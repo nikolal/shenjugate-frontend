@@ -32,6 +32,7 @@ const defaultExercise: Exercise = {
   primary_muscles: [],
   secondary_muscles: [],
   weight: 0,
+  priority: 0,
 };
 
 export const defaultTemplate: ExerciseTemplate = [
